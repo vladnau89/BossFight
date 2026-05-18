@@ -1234,6 +1234,14 @@ PrefabInstance:
       propertyPath: m_DefaultLoadout.Array.data[2].Amount
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 8349585264801510011, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_ProjectileVisibility
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349585264801510011, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_ProjectileFireVelocityMagnitude
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1247,6 +1247,7 @@ GameObject:
   - component: {fileID: 7671026241484305289}
   - component: {fileID: 2503330351616998908}
   - component: {fileID: 5044409861722466360}
+  - component: {fileID: 8844221100998877665}
   - component: {fileID: 4282838798480671742}
   - component: {fileID: 5854197148533676925}
   - component: {fileID: 7873570891075504423}
@@ -1561,6 +1562,18 @@ MonoBehaviour:
   m_LookDirectionDistance: 100
   m_LookTransform: {fileID: 6922564229773956362}
   m_Target: {fileID: 0}
+--- !u!114 &8844221100998877665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548646073837861339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e5f6a7b8c94012a3b4c5d6e7f89012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4282838798480671742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6295,7 +6308,7 @@ MonoBehaviour:
   m_BurstDelay: 0.25
   m_Spread: 0.01
   m_FireInLookSourceDirection: 1
-  m_Projectile: {fileID: 1937596618017326, guid: 441e1b57163b9f54c965dd296549955d, type: 3}
+  m_Projectile: {fileID: 1937596618017326, guid: b8d4f0a32c5e7491b0f3e2d4c6a8b012, type: 3}
   m_ProjectileFireVelocityMagnitude: 3
   m_ProjectileVisibility: 0
   m_ProjectileStartLayer: 2
