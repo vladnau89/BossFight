@@ -1025,6 +1025,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 1694732264937432600, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_CategoryItemSets.Array.data[0].m_DefaultItemSetIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694732264937432600, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_CategoryItemSets.Array.data[0].m_ItemSetList.Array.data[0].m_Slots.Array.data[0]
+      value: 
+      objectReference: {fileID: 114980215125769966, guid: 5481010ef14c32f4cb7b6661b0c59fb4, type: 2}
+    - target: {fileID: 1694732264937432600, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_CategoryItemSets.Array.data[0].m_ItemSetList.Array.data[1].m_Slots.Array.data[0]
+      value: 
+      objectReference: {fileID: 114165112627310990, guid: 5481010ef14c32f4cb7b6661b0c59fb4, type: 2}
     - target: {fileID: 2503330351616998908, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: mBehaviorSource.mTaskData.JSONSerialization
       value: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(409,30)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(0.9088955,124.999847)"},"ID":1,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.Math.SetBool","NodeData":{"Offset":"(-326.323639,139.5089)","Comment":"Reset
@@ -1162,13 +1174,13 @@ PrefabInstance:
         Position","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},"SharedVector3storeValue":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"Last
         Position","IsShared":true,"Vector3mValue":"(0,0,0)"}}]}]}]}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Search
         Distance","IsShared":true,"SinglemValue":12},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Attack
-        Distance","IsShared":true,"SinglemValue":5},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Near
+        Distance","IsShared":true,"SinglemValue":10},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Near
         Distance","IsShared":true,"SinglemValue":2},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Ammo
         Location","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Health
         Pack Location","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":"Ammo","IsShared":true,"PropertyMapping":"Opsive.UltimateCharacterController.Demo.BehaviorDesigner.DemoAgent/Ammo","Int32mValue":0},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Health","IsShared":true,"PropertyMapping":"Opsive.UltimateCharacterController.Demo.BehaviorDesigner.DemoAgent/Health","SinglemValue":0},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"Last
         Position","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Wander","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Update
         Position","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Can
-        See Target","IsShared":true}]}'
+        See Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true}]}'
       objectReference: {fileID: 0}
     - target: {fileID: 2503330351616998908, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: mBehaviorSource.mTaskData.fieldSerializationData.unityObjects.Array.size
@@ -1217,6 +1229,10 @@ PrefabInstance:
     - target: {fileID: 6334331783769622501, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8236668644313694537, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_DefaultLoadout.Array.data[2].Amount
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

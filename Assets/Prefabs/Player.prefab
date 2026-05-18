@@ -76,6 +76,37 @@ Transform:
   - {fileID: 8163202613473841321}
   m_Father: {fileID: 5805688790079091849}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6034567700664336964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1405823489127222527}
+  m_Layer: 31
+  m_Name: AimTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1405823489127222527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034567700664336964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.438, z: 0.213}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5805688790079091849}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7592412764584592141
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +594,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400008, guid: 4f853fc010b06f7409005ef8e646e2f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6527637034918295626}
+    - targetCorrespondingSourceObject: {fileID: 400008, guid: 4f853fc010b06f7409005ef8e646e2f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1405823489127222527}
     - targetCorrespondingSourceObject: {fileID: 400178, guid: 4f853fc010b06f7409005ef8e646e2f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3608030456114331324}
@@ -612,6 +646,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100008, guid: 4f853fc010b06f7409005ef8e646e2f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6393853937338570600}
+    - targetCorrespondingSourceObject: {fileID: 100008, guid: 4f853fc010b06f7409005ef8e646e2f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 213869859764916468}
     - targetCorrespondingSourceObject: {fileID: 100074, guid: 4f853fc010b06f7409005ef8e646e2f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 772002900153024132}
@@ -1487,6 +1524,19 @@ MonoBehaviour:
   m_FootOffset: 0.07
   m_Interval: 0.3
   m_MinBobInterval: 0.2
+--- !u!114 &213869859764916468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805688790079383721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc34bbd8ee7b03540ba4e01d4cec654e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AimPoint>k__BackingField: {fileID: 1405823489127222527}
 --- !u!1 &5805688790079383785 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100072, guid: 4f853fc010b06f7409005ef8e646e2f0, type: 3}
