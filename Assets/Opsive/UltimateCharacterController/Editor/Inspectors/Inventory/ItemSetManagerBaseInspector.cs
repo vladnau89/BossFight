@@ -465,8 +465,13 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Inventory
             EditorGUI.BeginChangeCheck();
             if (m_ItemSetListIndex >= m_ItemSetManager.CategoryItemSets.Length ||
                 EditorPrefs.GetInt(SelectedItemSetIndexKey, -1) == -1 ||
-                EditorPrefs.GetInt(SelectedItemSetIndexKey, -1) >= m_ItemSetManager.CategoryItemSets[m_ItemSetListIndex].ItemSetList.Count) {
-                m_ReorderableItemSetStateList[m_ItemSetListIndex].index = -1;
+                EditorPrefs.GetInt(SelectedItemSetIndexKey, -1) >= m_ItemSetManager.CategoryItemSets[m_ItemSetListIndex].ItemSetList.Count)
+            {
+                if (m_ReorderableItemSetStateList?[m_ItemSetListIndex] != null)
+                {
+                    m_ReorderableItemSetStateList[m_ItemSetListIndex].index = -1;
+                }
+
                 return;
             }
 
@@ -474,7 +479,10 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Inventory
 
             // The index may be out of range if the component was copied.
             if (index >= itemSet.States.Length) {
-                m_ReorderableItemSetStateList[m_ItemSetListIndex].index = -1;
+                if (m_ReorderableItemSetStateList?[m_ItemSetListIndex] != null)
+                {
+                    m_ReorderableItemSetStateList[m_ItemSetListIndex].index = -1;
+                }
                 return;
             }
 
