@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Opsive.UltimateCharacterController.Character;
 using Opsive.UltimateCharacterController.Game;
 using Opsive.UltimateCharacterController.Traits;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Giant hand phase: slam AoE, ground wave, and weak point hitboxes for the boss.
@@ -59,6 +61,19 @@ public class BossCombat : MonoBehaviour
                 m_SlamOrigin = m_GiantHandRoot.transform.Find("SlamOrigin");
             }
         }
+        
+        m_Health.OnDeathEvent.AddListener(OnDeathEvent);
+    }
+
+    private void OnDestroy()
+    {
+        m_Health.OnDeathEvent.RemoveListener(OnDeathEvent);
+    }
+
+    private void OnDeathEvent(Vector3 arg0, Vector3 arg1, GameObject arg2)
+    {
+        ShowRangedPhase();
+        StopCoroutine(ApplySlamImpactCoroutine());
     }
 
     public bool IsHandSlamInProgress => m_HandSlamMotion != null && m_HandSlamMotion.IsPlaying;
@@ -105,8 +120,6 @@ public class BossCombat : MonoBehaviour
 
     public void PerformHandSlam(Transform target)
     {
-        Debug.LogError($"PerformHandSlam target : {target} m_HandSlamMotion : {m_HandSlamMotion}");
-        
         if (m_HandSlamMotion != null && m_HandSlamMotion.IsPlaying) {
             return;
         }
@@ -131,13 +144,14 @@ public class BossCombat : MonoBehaviour
     private IEnumerator ApplySlamImpactCoroutine()
     {
         yield return new WaitForSeconds(Random.Range(m_WaveDelayMin, m_WaveDelayMax));
-        ApplySlamImpact();
+        if (m_Health.IsAlive())
+        {
+            ApplySlamImpact();
+        }
     }
 
     private void ApplySlamImpact()
     {
-        Debug.LogError("ApplySlamImpact");
-        
         var origin = m_SlamOrigin != null ? m_SlamOrigin.position : transform.position;
 
         if (m_HandSlamDamage != null) {
