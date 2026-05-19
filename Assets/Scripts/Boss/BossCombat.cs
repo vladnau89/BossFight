@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Opsive.UltimateCharacterController.Character;
 using Opsive.UltimateCharacterController.Game;
 using Opsive.UltimateCharacterController.Traits;
@@ -8,7 +7,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 /// <summary>
-/// Giant hand phase: slam AoE, ground wave, and weak point hitboxes for the boss.
+/// Giant hand phase: slam AoE, ground wave, and weak points for the boss.
 /// </summary>
 [DefaultExecutionOrder(-100)]
 public class BossCombat : MonoBehaviour
@@ -45,7 +44,7 @@ public class BossCombat : MonoBehaviour
                 ? m_GiantHandRoot.GetComponentsInChildren<WeakPointMarker>(true)
                 : GetComponentsInChildren<WeakPointMarker>(true);
         }
-        RefreshHitboxes();
+        ClearWeakPointHitboxes();
         SetWeakPointsActive(m_WeakPointsActive);
         if (m_GiantHandRoot != null) {
             m_GiantHandRoot.SetActive(false);
@@ -72,8 +71,9 @@ public class BossCombat : MonoBehaviour
 
     private void OnDeathEvent(Vector3 arg0, Vector3 arg1, GameObject arg2)
     {
-        ShowRangedPhase();
         StopCoroutine(ApplySlamImpactCoroutine());
+        m_HandSlamMotion.CancelAndRestore();
+        ShowRangedPhase();
     }
 
     public bool IsHandSlamInProgress => m_HandSlamMotion != null && m_HandSlamMotion.IsPlaying;
@@ -110,12 +110,37 @@ public class BossCombat : MonoBehaviour
             if (m_WeakPoints[i] == null) {
                 continue;
             }
+            if (active) {
+                m_WeakPoints[i].ResetHealth();
+            }
             m_WeakPoints[i].gameObject.SetActive(active);
             var collider = m_WeakPoints[i].Collider;
             if (collider != null) {
-                collider.enabled = active;
+                collider.enabled = active && !m_WeakPoints[i].IsDestroyed;
             }
         }
+    }
+
+    public bool TryDamageWeakPoint(Collider hitCollider, float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, GameObject attacker, object attackerObject)
+    {
+        if (!m_WeakPointsActive || m_WeakPoints == null || hitCollider == null) {
+            return false;
+        }
+
+        for (var i = 0; i < m_WeakPoints.Length; i++) {
+            var weakPoint = m_WeakPoints[i];
+            if (weakPoint == null || weakPoint.Collider != hitCollider) {
+                continue;
+            }
+            return weakPoint.TakeDamage(amount, position, direction, forceMagnitude, frames, attacker, attackerObject, hitCollider);
+        }
+
+        return false;
+    }
+
+    public void OnWeakPointDestroyed(WeakPointMarker weakPoint)
+    {
+        ClearWeakPointHitboxes();
     }
 
     public void PerformHandSlam(Transform target)
@@ -164,19 +189,10 @@ public class BossCombat : MonoBehaviour
         }
     }
 
-    public void RefreshHitboxes()
+    public void ClearWeakPointHitboxes()
     {
-        if (m_Health == null || m_WeakPoints == null || m_WeakPoints.Length == 0) {
-            return;
+        if (m_Health != null) {
+            m_Health.Hitboxes = System.Array.Empty<Hitbox>();
         }
-
-        var hitboxes = new List<Hitbox>(m_WeakPoints.Length);
-        for (var i = 0; i < m_WeakPoints.Length; i++) {
-            if (m_WeakPoints[i] == null) {
-                continue;
-            }
-            hitboxes.Add(m_WeakPoints[i].CreateHitbox());
-        }
-        m_Health.Hitboxes = hitboxes.ToArray();
     }
 }

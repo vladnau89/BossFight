@@ -181,7 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6478990abcdef12345603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DamageMultiplier: 3
+  m_MaxHealth: 30
+  m_BossDamageOnDestroy: 100
   m_Collider: {fileID: 7147143364980858388}
 --- !u!1 &215337789274812763
 GameObject:
@@ -422,7 +423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6478990abcdef12345603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DamageMultiplier: 3
+  m_MaxHealth: 30
+  m_BossDamageOnDestroy: 100
   m_Collider: {fileID: 2887930732362845371}
 --- !u!1 &474211986623701334
 GameObject:
@@ -1900,7 +1902,10 @@ MonoBehaviour:
         Pack Location","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":"Ammo","IsShared":true,"PropertyMapping":"Opsive.UltimateCharacterController.Demo.BehaviorDesigner.DemoAgent/Ammo","Int32mValue":0},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Health","IsShared":true,"PropertyMapping":"Opsive.UltimateCharacterController.Demo.BehaviorDesigner.DemoAgent/Health","SinglemValue":0},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"Last
         Position","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Wander","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Update
         Position","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Can
-        See Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true}]}'
+        See Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Hand
+        Slam Ready","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Hand
+        Slam Distance","IsShared":true,"SinglemValue":5},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Hand
+        Slam Cooldown","IsShared":true,"SinglemValue":15}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -2085,7 +2090,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1548646073837861339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6607657a78e5445a5e47d0ad348e2d, type: 3}
+  m_Script: {fileID: 11500000, guid: b8c9d0e1f2a3456789abcdef01234567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_States:
@@ -2097,17 +2102,7 @@ MonoBehaviour:
   m_TimeInvincibleAfterSpawn: 0
   m_HealthAttributeName: Health
   m_ShieldAttributeName: 
-  m_Hitboxes:
-  - m_Collider: {fileID: 7755908162731819468}
-    m_DamageMultiplier: 3
-  - m_Collider: {fileID: 2887930732362845371}
-    m_DamageMultiplier: 3
-  - m_Collider: {fileID: 1536676186723136850}
-    m_DamageMultiplier: 3
-  - m_Collider: {fileID: 7147143364980858388}
-    m_DamageMultiplier: 3
-  - m_Collider: {fileID: 1233072966025726283}
-    m_DamageMultiplier: 3
+  m_Hitboxes: []
   m_MaxHitboxCollisionCount: 10
   m_SpawnedObjectsOnDeath: []
   m_DestroyedObjectsOnDeath: []
@@ -2206,7 +2201,7 @@ MonoBehaviour:
   m_CategoryItemSets:
   - m_CategoryID: 3636424895
     m_CategoryName: Items
-    m_DefaultItemSetIndex: -1
+    m_DefaultItemSetIndex: 0
     m_ItemSetList:
     - m_States:
       - m_Name: Default
@@ -2240,8 +2235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2fc3c5ec9fe8c241bc7a9c89fb57734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RemoveAllOnDeath: 1
-  m_LoadDefaultLoadoutOnRespawn: 1
+  m_RemoveAllOnDeath: 0
+  m_LoadDefaultLoadoutOnRespawn: 0
   m_UnequippedStateName: Unequipped
   m_OnAddItemEvent:
     m_PersistentCalls:
@@ -2514,6 +2509,8 @@ MonoBehaviour:
   m_ShockwavePrefab: {fileID: 11400001, guid: b2c3d4e5f6a7480990abcdef12345700, type: 3}
   m_HandSlamDamageAmount: 35
   m_HandSlamForce: 4
+  m_WaveDelayMin: 1
+  m_WaveDelayMax: 3
   m_WaveDamage: 12
   m_WaveMaxRadius: 20
   m_WaveSpeed: 10
@@ -2789,13 +2786,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RaiseLocalEuler: {x: -80, y: 0, z: 0}
-  m_SlamArmEuler: {x: 35, y: 0, z: 0}
-  m_RotationOffsetEuler: {x: -90, y: 0, z: 0}
-  m_SlamReachLocalOffset: {x: 0, y: -0.15, z: 0.6}
-  m_RaiseTime: 0.35
-  m_HoverTime: 0.25
-  m_DropTime: 0.5
-  m_HoldAfterImpactTime: 0.15
+  m_SlamArmEuler: {x: 0, y: 0, z: 0}
+  m_RotationOffsetEuler: {x: 0, y: 0, z: 0}
+  m_SlamReachLocalOffset: {x: 0, y: 0, z: 0}
+  m_RaiseTime: 3
+  m_HoverTime: 3
+  m_DropTime: 1
+  m_HoldAfterImpactTime: 10
   m_HideAfterSlam: 1
 --- !u!1 &1888001001888001030
 GameObject:
@@ -3593,7 +3590,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6478990abcdef12345603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DamageMultiplier: 3
+  m_MaxHealth: 30
+  m_BossDamageOnDestroy: 100
   m_Collider: {fileID: 1233072966025726283}
 --- !u!1 &4502993175676998877
 GameObject:
@@ -5357,7 +5355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6478990abcdef12345603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DamageMultiplier: 3
+  m_MaxHealth: 30
+  m_BossDamageOnDestroy: 100
   m_Collider: {fileID: 7755908162731819468}
 --- !u!1 &6975225542348412006
 GameObject:
@@ -6030,7 +6029,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6478990abcdef12345603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DamageMultiplier: 3
+  m_MaxHealth: 30
+  m_BossDamageOnDestroy: 100
   m_Collider: {fileID: 1536676186723136850}
 --- !u!1 &7986799259740045970
 GameObject:

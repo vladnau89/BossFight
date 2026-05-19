@@ -1,17 +1,66 @@
-using System.Reflection;
 using Opsive.UltimateCharacterController.Traits;
 using UnityEngine;
 
 /// <summary>
-/// Weak spot collider on the giant hand. Used by <see cref="BossCombat"/> to register hitboxes.
+/// Weak spot on the giant hand. Absorbs damage until destroyed, then deals burst damage to the boss.
 /// </summary>
 public class WeakPointMarker : MonoBehaviour
 {
-    [SerializeField] private float m_DamageMultiplier = 3f;
+    [SerializeField] private float m_MaxHealth = 30f;
+    [SerializeField] private float m_BossDamageOnDestroy = 100f;
     [SerializeField] private SphereCollider m_Collider;
 
-    public float DamageMultiplier => m_DamageMultiplier;
+    private float m_CurrentHealth;
+    private bool m_IsDestroyed;
+    private BossCombat m_BossCombat;
+    private Health m_BossHealth;
+
+    public bool IsDestroyed => m_IsDestroyed;
     public Collider Collider => m_Collider != null ? m_Collider : m_Collider = GetComponent<SphereCollider>();
 
-    public Hitbox CreateHitbox() => new(Collider, m_DamageMultiplier);
+    private void Awake()
+    {
+        m_BossCombat = GetComponentInParent<BossCombat>();
+        m_BossHealth = m_BossCombat != null ? m_BossCombat.GetComponent<Health>() : GetComponentInParent<Health>();
+        ResetHealth();
+    }
+
+    public void ResetHealth()
+    {
+        m_IsDestroyed = false;
+        m_CurrentHealth = m_MaxHealth;
+    }
+
+    /// <returns>True if this collider handled the hit.</returns>
+    public bool TakeDamage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, GameObject attacker, object attackerObject, Collider hitCollider)
+    {
+        if (m_IsDestroyed || !isActiveAndEnabled || !gameObject.activeInHierarchy) {
+            return false;
+        }
+
+        m_CurrentHealth -= amount;
+        if (m_CurrentHealth > 0f) {
+            return true;
+        }
+
+        DestroyWeakPoint(position, direction, attacker, attackerObject);
+        return true;
+    }
+
+    private void DestroyWeakPoint(Vector3 position, Vector3 direction, GameObject attacker, object attackerObject)
+    {
+        m_IsDestroyed = true;
+        m_CurrentHealth = 0f;
+
+        if (Collider != null) {
+            Collider.enabled = false;
+        }
+        gameObject.SetActive(false);
+
+        if (m_BossHealth != null && m_BossDamageOnDestroy > 0f) {
+            m_BossHealth.OnDamage(m_BossDamageOnDestroy, position, direction, 0f, 0, 0f, attacker, attackerObject, null);
+        }
+
+        m_BossCombat?.OnWeakPointDestroyed(this);
+    }
 }
