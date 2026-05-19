@@ -128,6 +128,7 @@ namespace Opsive.UltimateCharacterController.Traits
         public float HealthValue { get { return (m_HealthAttribute != null ? m_HealthAttribute.Value : 0); } }
         public float ShieldValue { get { return (m_ShieldAttribute != null ? m_ShieldAttribute.Value : 0); } }
         public float Value { get { return HealthValue + ShieldValue; } }
+        public float HealthMaxValue => m_HealthAttribute?.MaxValue ?? 0;
 
         /// <summary>
         /// Initialize the default values.

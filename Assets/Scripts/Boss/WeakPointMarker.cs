@@ -11,12 +11,10 @@ public class WeakPointMarker : MonoBehaviour
     [SerializeField] private SphereCollider m_Collider;
 
     private float m_CurrentHealth;
-    private bool m_IsDestroyed;
     private BossCombat m_BossCombat;
     private WeakPointVisual m_Visual;
     private Coroutine m_HideCoroutine;
 
-    public bool IsDestroyed => m_IsDestroyed;
     public Collider Collider => m_Collider != null ? m_Collider : m_Collider = GetComponent<SphereCollider>();
 
     private void Awake()
@@ -28,22 +26,22 @@ public class WeakPointMarker : MonoBehaviour
         }
         ResetHealth();
     }
-
+    
     public void ResetHealth()
     {
         if (m_HideCoroutine != null) {
             StopCoroutine(m_HideCoroutine);
             m_HideCoroutine = null;
         }
-        m_IsDestroyed = false;
         m_CurrentHealth = m_MaxHealth;
+        EnableCollider(true);
         m_Visual?.ResetVisual();
     }
 
     /// <returns>True if this collider handled the hit.</returns>
     public bool TakeDamage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, GameObject attacker, object attackerObject, Collider hitCollider)
     {
-        if (m_IsDestroyed || !isActiveAndEnabled || !gameObject.activeInHierarchy) {
+        if (m_CurrentHealth <= 0 || !isActiveAndEnabled || !gameObject.activeInHierarchy) {
             return false;
         }
 
@@ -57,14 +55,13 @@ public class WeakPointMarker : MonoBehaviour
         return true;
     }
 
+    public void SetActive(bool active) => gameObject.SetActive(active);
+
     private void DestroyWeakPoint(Vector3 position, Vector3 direction, GameObject attacker, object attackerObject)
     {
-        m_IsDestroyed = true;
         m_CurrentHealth = 0f;
 
-        if (Collider != null) {
-            Collider.enabled = false;
-        }
+        EnableCollider(false);
 
         m_Visual?.PlayDestroyed();
 
@@ -80,11 +77,18 @@ public class WeakPointMarker : MonoBehaviour
         m_HideCoroutine = StartCoroutine(HideAfterDestroyFlash());
     }
 
+    private void EnableCollider(bool enable)
+    {
+        if (Collider != null) {
+            Collider.enabled = enable;
+        }
+    }
+
     private IEnumerator HideAfterDestroyFlash()
     {
         var duration = m_Visual != null ? m_Visual.DestroyFlashDuration : 0.25f;
         yield return new WaitForSeconds(duration);
-        gameObject.SetActive(false);
+        SetActive(false);
         m_HideCoroutine = null;
     }
 }
