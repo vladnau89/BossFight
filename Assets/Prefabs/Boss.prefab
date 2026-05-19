@@ -2516,7 +2516,7 @@ MonoBehaviour:
   m_WaveSpeed: 10
   m_PlayerDamageLayers:
     serializedVersion: 2
-    m_Bits: 2147483648
+    m_Bits: 3221225472
   m_WeakPoints:
   - {fileID: 3227660099561062944}
   - {fileID: 5592476348556042139}

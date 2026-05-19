@@ -14,7 +14,7 @@ public class GroundShockwave : MonoBehaviour
     [SerializeField] private float m_MaxRadius = 25f;
     [SerializeField] private float m_Damage = 15f;
     [SerializeField] private float m_ForceMagnitude = 2f;
-    [SerializeField] private LayerMask m_TargetLayers = 1 << LayerManager.Character;
+    [SerializeField] private LayerMask m_TargetLayers = (1 << LayerManager.Character) | (1 << LayerManager.SubCharacter);
 
     [Header("Visual")]
     [SerializeField] private LineRenderer m_OuterRing;

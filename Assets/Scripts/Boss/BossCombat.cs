@@ -28,7 +28,7 @@ public class BossCombat : MonoBehaviour
     [SerializeField] private float m_WaveDamage = 12f;
     [SerializeField] private float m_WaveMaxRadius = 20f;
     [SerializeField] private float m_WaveSpeed = 10f;
-    [SerializeField] private LayerMask m_PlayerDamageLayers = 1 << LayerManager.Character;
+    [SerializeField] private LayerMask m_PlayerDamageLayers = (1 << LayerManager.Character) | (1 << LayerManager.SubCharacter);
 
     [Header("Weak points")]
     [SerializeField] private WeakPointMarker[] m_WeakPoints;
@@ -71,7 +71,7 @@ public class BossCombat : MonoBehaviour
 
     private void OnDeathEvent(Vector3 arg0, Vector3 arg1, GameObject arg2)
     {
-        StopCoroutine(ApplySlamImpactCoroutine());
+        StopAllCoroutines();
         m_HandSlamMotion.CancelAndRestore();
         ShowRangedPhase();
     }
@@ -163,30 +163,29 @@ public class BossCombat : MonoBehaviour
     private void OnHandSlamLanded()
     {
         SetWeakPointsActive(true);
-        StartCoroutine(ApplySlamImpactCoroutine());
+        ApplyHandSlamDamage();
+        StartCoroutine(SpawnGroundShockwaveCoroutine());
     }
 
-    private IEnumerator ApplySlamImpactCoroutine()
+    private void ApplyHandSlamDamage()
+    {
+        if (!m_Health.IsAlive() || m_HandSlamDamage == null) {
+            return;
+        }
+
+        m_HandSlamDamage.BeginSlam(m_HandSlamDamageAmount, m_HandSlamForce, gameObject, m_PlayerDamageLayers);
+    }
+
+    private IEnumerator SpawnGroundShockwaveCoroutine()
     {
         yield return new WaitForSeconds(Random.Range(m_WaveDelayMin, m_WaveDelayMax));
-        if (m_Health.IsAlive())
-        {
-            ApplySlamImpact();
+        if (!m_Health.IsAlive() || m_ShockwavePrefab == null) {
+            yield break;
         }
-    }
 
-    private void ApplySlamImpact()
-    {
         var origin = m_SlamOrigin != null ? m_SlamOrigin.position : transform.position;
-
-        if (m_HandSlamDamage != null) {
-            m_HandSlamDamage.BeginSlam(m_HandSlamDamageAmount, m_HandSlamForce, gameObject, m_PlayerDamageLayers);
-        }
-
-        if (m_ShockwavePrefab != null) {
-            var wave = Instantiate(m_ShockwavePrefab, origin, Quaternion.identity);
-            wave.Initialize(origin, gameObject, m_WaveDamage, m_WaveMaxRadius, m_WaveSpeed);
-        }
+        var wave = Instantiate(m_ShockwavePrefab, origin, Quaternion.identity);
+        wave.Initialize(origin, gameObject, m_WaveDamage, m_WaveMaxRadius, m_WaveSpeed);
     }
 
     public void ClearWeakPointHitboxes()

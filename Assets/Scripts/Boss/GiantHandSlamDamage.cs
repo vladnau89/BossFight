@@ -37,6 +37,7 @@ public class GiantHandSlamDamage : MonoBehaviour
         m_HitThisSlam.Clear();
         m_Active = true;
         m_Collider.enabled = true;
+        ApplyOverlapDamage();
         CancelInvoke(nameof(EndSlam));
         Invoke(nameof(EndSlam), m_HitDuration);
     }
@@ -51,7 +52,16 @@ public class GiantHandSlamDamage : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!m_Active || m_Collider == null || !m_Collider.enabled) {
+        if (!m_Active) {
+            return;
+        }
+
+        ApplyOverlapDamage();
+    }
+
+    private void ApplyOverlapDamage()
+    {
+        if (m_Collider == null || !m_Collider.enabled) {
             return;
         }
 
