@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 /// <summary>
-/// Expanding ground damage ring. Spawned by <see cref="BossCombat"/>.
+/// Expanding ground damage ring. Spawned by boss attack components.
 /// </summary>
 public class GroundShockwave : MonoBehaviour
 {

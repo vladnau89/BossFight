@@ -24,9 +24,6 @@ public class WeakPointVisual : MonoBehaviour
 
     private void Awake()
     {
-        if (m_Renderer == null) {
-            m_Renderer = GetComponent<Renderer>();
-        }
         m_PropertyBlock = new MaterialPropertyBlock();
         m_BaseScale = transform.localScale;
     }

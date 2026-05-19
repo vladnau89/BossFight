@@ -17,7 +17,7 @@ namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
         public override void OnStart()
         {
             var boss = GetDefaultGameObject(m_Boss.Value);
-            m_Combat = boss != null ? boss.GetComponent<BossCombat>() : null;
+            m_Combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
         }
 
         public override TaskStatus OnUpdate()

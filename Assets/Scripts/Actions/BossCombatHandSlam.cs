@@ -14,7 +14,7 @@ namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
         public override void OnStart()
         {
             var boss = GetDefaultGameObject(m_Boss.Value);
-            m_Combat = boss != null ? boss.GetComponent<BossCombat>() : null;
+            m_Combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
             m_Started = false;
         }
 
@@ -33,7 +33,7 @@ namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
                 m_Combat.PerformHandSlam(target);
             }
 
-            if (m_Combat.IsHandSlamInProgress) {
+            if (m_Combat.IsInProgress) {
                 return TaskStatus.Running;
             }
 

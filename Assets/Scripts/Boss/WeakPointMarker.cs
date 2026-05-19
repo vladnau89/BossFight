@@ -9,22 +9,19 @@ public class WeakPointMarker : MonoBehaviour
     [SerializeField] private float m_MaxHealth = 30f;
     [SerializeField] private float m_BossDamageOnDestroy = 100f;
     [SerializeField] private SphereCollider m_Collider;
+    [SerializeField] private WeakPointVisual m_Visual;
 
     private float m_CurrentHealth;
-    private BossCombat m_BossCombat;
-    private WeakPointVisual m_Visual;
     private Coroutine m_HideCoroutine;
 
-    public Collider Collider => m_Collider != null ? m_Collider : m_Collider = GetComponent<SphereCollider>();
+    public Collider Collider => m_Collider;
+
+    public float BossDamageOnDestroy => m_BossDamageOnDestroy;
+    public bool IsDestroyed => m_CurrentHealth <= 0;
 
     private void Awake()
     {
-        m_BossCombat = GetComponentInParent<BossCombat>();
-        m_Visual = GetComponent<WeakPointVisual>();
-        if (m_Visual == null) {
-            m_Visual = gameObject.AddComponent<WeakPointVisual>();
-        }
-        ResetHealth();
+        m_CurrentHealth = m_MaxHealth;
     }
     
     public void ResetHealth()
@@ -39,7 +36,7 @@ public class WeakPointMarker : MonoBehaviour
     }
 
     /// <returns>True if this collider handled the hit.</returns>
-    public bool TakeDamage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, GameObject attacker, object attackerObject, Collider hitCollider)
+    public bool TakeDamage(float amount)
     {
         if (m_CurrentHealth <= 0 || !isActiveAndEnabled || !gameObject.activeInHierarchy) {
             return false;
@@ -51,38 +48,27 @@ public class WeakPointMarker : MonoBehaviour
             return true;
         }
 
-        DestroyWeakPoint(position, direction, attacker, attackerObject);
+        DestroyWeakPoint();
         return true;
     }
 
     public void SetActive(bool active) => gameObject.SetActive(active);
 
-    private void DestroyWeakPoint(Vector3 position, Vector3 direction, GameObject attacker, object attackerObject)
+    private void DestroyWeakPoint()
     {
         m_CurrentHealth = 0f;
 
         EnableCollider(false);
 
         m_Visual?.PlayDestroyed();
-
-        if (m_BossCombat != null && m_BossDamageOnDestroy > 0f) {
-            m_BossCombat.ApplyWeakPointBurstDamage(m_BossDamageOnDestroy, position, direction, attacker, attackerObject);
-        }
-
-        m_BossCombat?.OnWeakPointDestroyed(this);
-
+        
         if (m_HideCoroutine != null) {
             StopCoroutine(m_HideCoroutine);
         }
         m_HideCoroutine = StartCoroutine(HideAfterDestroyFlash());
     }
 
-    private void EnableCollider(bool enable)
-    {
-        if (Collider != null) {
-            Collider.enabled = enable;
-        }
-    }
+    private void EnableCollider(bool enable) => m_Collider.enabled = enable;
 
     private IEnumerator HideAfterDestroyFlash()
     {

@@ -12,7 +12,7 @@ public class BossCharacterHealth : CharacterHealth
     protected override void Awake()
     {
         base.Awake();
-        m_BossCombat = GetComponent<BossCombat>();
+        m_BossCombat = GetComponentInChildren<BossCombat>();
     }
 
     public void ApplyWeakPointBurstDamage(float amount, Vector3 position, Vector3 direction, GameObject attacker, object attackerObject)
