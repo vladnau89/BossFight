@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -12,6 +13,8 @@ public class WeakPointMarker : MonoBehaviour
     private float m_CurrentHealth;
     private bool m_IsDestroyed;
     private BossCombat m_BossCombat;
+    private WeakPointVisual m_Visual;
+    private Coroutine m_HideCoroutine;
 
     public bool IsDestroyed => m_IsDestroyed;
     public Collider Collider => m_Collider != null ? m_Collider : m_Collider = GetComponent<SphereCollider>();
@@ -19,13 +22,22 @@ public class WeakPointMarker : MonoBehaviour
     private void Awake()
     {
         m_BossCombat = GetComponentInParent<BossCombat>();
+        m_Visual = GetComponent<WeakPointVisual>();
+        if (m_Visual == null) {
+            m_Visual = gameObject.AddComponent<WeakPointVisual>();
+        }
         ResetHealth();
     }
 
     public void ResetHealth()
     {
+        if (m_HideCoroutine != null) {
+            StopCoroutine(m_HideCoroutine);
+            m_HideCoroutine = null;
+        }
         m_IsDestroyed = false;
         m_CurrentHealth = m_MaxHealth;
+        m_Visual?.ResetVisual();
     }
 
     /// <returns>True if this collider handled the hit.</returns>
@@ -36,6 +48,7 @@ public class WeakPointMarker : MonoBehaviour
         }
 
         m_CurrentHealth -= amount;
+        m_Visual?.PlayHitFlash();
         if (m_CurrentHealth > 0f) {
             return true;
         }
@@ -52,12 +65,26 @@ public class WeakPointMarker : MonoBehaviour
         if (Collider != null) {
             Collider.enabled = false;
         }
-        gameObject.SetActive(false);
+
+        m_Visual?.PlayDestroyed();
 
         if (m_BossCombat != null && m_BossDamageOnDestroy > 0f) {
             m_BossCombat.ApplyWeakPointBurstDamage(m_BossDamageOnDestroy, position, direction, attacker, attackerObject);
         }
 
-        m_BossCombat.OnWeakPointDestroyed(this);
+        m_BossCombat?.OnWeakPointDestroyed(this);
+
+        if (m_HideCoroutine != null) {
+            StopCoroutine(m_HideCoroutine);
+        }
+        m_HideCoroutine = StartCoroutine(HideAfterDestroyFlash());
+    }
+
+    private IEnumerator HideAfterDestroyFlash()
+    {
+        var duration = m_Visual != null ? m_Visual.DestroyFlashDuration : 0.25f;
+        yield return new WaitForSeconds(duration);
+        gameObject.SetActive(false);
+        m_HideCoroutine = null;
     }
 }
