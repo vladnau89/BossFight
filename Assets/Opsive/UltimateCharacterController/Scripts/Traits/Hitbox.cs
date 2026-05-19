@@ -35,5 +35,10 @@ namespace Opsive.UltimateCharacterController.Traits
         {
             m_Collider = collider;
         }
+
+        public Hitbox(Collider collider, float damageMultiplier) : this(collider)
+        {
+            m_DamageMultiplier = damageMultiplier;
+        }
     }
 }

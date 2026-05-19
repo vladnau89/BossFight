@@ -1025,18 +1025,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
-    - target: {fileID: 1694732264937432600, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: m_CategoryItemSets.Array.data[0].m_DefaultItemSetIndex
+    - target: {fileID: 1888001001888001010, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1694732264937432600, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: m_CategoryItemSets.Array.data[0].m_ItemSetList.Array.data[0].m_Slots.Array.data[0]
-      value: 
-      objectReference: {fileID: 114980215125769966, guid: 5481010ef14c32f4cb7b6661b0c59fb4, type: 2}
-    - target: {fileID: 1694732264937432600, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: m_CategoryItemSets.Array.data[0].m_ItemSetList.Array.data[1].m_Slots.Array.data[0]
-      value: 
-      objectReference: {fileID: 114165112627310990, guid: 5481010ef14c32f4cb7b6661b0c59fb4, type: 2}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_DropTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_HoverTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_RaiseTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_SlamArmEuler.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_HoldAfterImpactTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_RotationOffsetEuler.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_SlamReachLocalOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: m_SlamReachLocalOffset.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2503330351616998908, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: mBehaviorSource.mTaskData.JSONSerialization
       value: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(409,30)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(0.9088955,124.999847)"},"ID":1,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.Math.SetBool","NodeData":{"Offset":"(-326.323639,139.5089)","Comment":"Reset
@@ -1180,11 +1204,10 @@ PrefabInstance:
         Pack Location","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":"Ammo","IsShared":true,"PropertyMapping":"Opsive.UltimateCharacterController.Demo.BehaviorDesigner.DemoAgent/Ammo","Int32mValue":0},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Health","IsShared":true,"PropertyMapping":"Opsive.UltimateCharacterController.Demo.BehaviorDesigner.DemoAgent/Health","SinglemValue":0},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"Last
         Position","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Wander","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Update
         Position","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Can
-        See Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true}]}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2503330351616998908, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: mBehaviorSource.mTaskData.fieldSerializationData.unityObjects.Array.size
-      value: 0
+        See Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"Hand
+        Slam Ready","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Hand
+        Slam Distance","IsShared":true,"SinglemValue":5},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"Hand
+        Slam Cooldown","IsShared":true,"SinglemValue":15}]}'
       objectReference: {fileID: 0}
     - target: {fileID: 5044409861722466360, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: m_Target
@@ -1229,18 +1252,6 @@ PrefabInstance:
     - target: {fileID: 6334331783769622501, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8236668644313694537, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: m_DefaultLoadout.Array.data[2].Amount
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 8349585264801510011, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: m_ProjectileVisibility
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8349585264801510011, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: m_ProjectileFireVelocityMagnitude
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
