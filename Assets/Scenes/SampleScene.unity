@@ -1389,14 +1389,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1102717299716776757, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: m_Attributes.Array.data[0].m_Value
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102717299716776757, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
-      propertyPath: m_Attributes.Array.data[0].m_MaxValue
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 1548646073837861339, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: m_Name
       value: Boss

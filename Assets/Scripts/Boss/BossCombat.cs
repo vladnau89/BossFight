@@ -121,6 +121,22 @@ public class BossCombat : MonoBehaviour
         }
     }
 
+    public bool IsWeakPointCollider(Collider hitCollider)
+    {
+        if (m_WeakPoints == null || hitCollider == null) {
+            return false;
+        }
+
+        for (var i = 0; i < m_WeakPoints.Length; i++) {
+            var weakPoint = m_WeakPoints[i];
+            if (weakPoint != null && weakPoint.Collider == hitCollider) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public bool TryDamageWeakPoint(Collider hitCollider, float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, GameObject attacker, object attackerObject)
     {
         if (!m_WeakPointsActive || m_WeakPoints == null || hitCollider == null) {
@@ -136,6 +152,13 @@ public class BossCombat : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ApplyWeakPointBurstDamage(float amount, Vector3 position, Vector3 direction, GameObject attacker, object attackerObject)
+    {
+        if (m_Health is BossCharacterHealth bossHealth) {
+            bossHealth.ApplyWeakPointBurstDamage(amount, position, direction, attacker, attackerObject);
+        }
     }
 
     public void OnWeakPointDestroyed(WeakPointMarker weakPoint)

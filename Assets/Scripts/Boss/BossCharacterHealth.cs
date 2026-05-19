@@ -2,11 +2,12 @@ using Opsive.UltimateCharacterController.Traits;
 using UnityEngine;
 
 /// <summary>
-/// Routes direct hits on weak point colliders to <see cref="WeakPointMarker"/> instead of boss health.
+/// Boss only takes damage from destroyed weak points. Body hits and AoE are ignored.
 /// </summary>
 public class BossCharacterHealth : CharacterHealth
 {
     private BossCombat m_BossCombat;
+    private bool m_AllowBossDamage;
 
     protected override void Awake()
     {
@@ -14,10 +15,23 @@ public class BossCharacterHealth : CharacterHealth
         m_BossCombat = GetComponent<BossCombat>();
     }
 
+    public void ApplyWeakPointBurstDamage(float amount, Vector3 position, Vector3 direction, GameObject attacker, object attackerObject)
+    {
+        m_AllowBossDamage = true;
+        base.OnDamage(amount, position, direction, 0f, 0, 0f, attacker, attackerObject, null);
+        m_AllowBossDamage = false;
+    }
+
     public override void OnDamage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, float radius, GameObject attacker, object attackerObject, Collider hitCollider)
     {
-        if (m_BossCombat != null && hitCollider != null
-            && m_BossCombat.TryDamageWeakPoint(hitCollider, amount, position, direction, forceMagnitude, frames, attacker, attackerObject)) {
+        if (m_BossCombat != null && hitCollider != null) {
+            if (m_BossCombat.IsWeakPointCollider(hitCollider)) {
+                m_BossCombat.TryDamageWeakPoint(hitCollider, amount, position, direction, forceMagnitude, frames, attacker, attackerObject);
+            }
+            return;
+        }
+
+        if (radius > 0f || !m_AllowBossDamage) {
             return;
         }
 

@@ -1,4 +1,3 @@
-using Opsive.UltimateCharacterController.Traits;
 using UnityEngine;
 
 /// <summary>
@@ -13,7 +12,6 @@ public class WeakPointMarker : MonoBehaviour
     private float m_CurrentHealth;
     private bool m_IsDestroyed;
     private BossCombat m_BossCombat;
-    private Health m_BossHealth;
 
     public bool IsDestroyed => m_IsDestroyed;
     public Collider Collider => m_Collider != null ? m_Collider : m_Collider = GetComponent<SphereCollider>();
@@ -21,7 +19,6 @@ public class WeakPointMarker : MonoBehaviour
     private void Awake()
     {
         m_BossCombat = GetComponentInParent<BossCombat>();
-        m_BossHealth = m_BossCombat != null ? m_BossCombat.GetComponent<Health>() : GetComponentInParent<Health>();
         ResetHealth();
     }
 
@@ -57,10 +54,10 @@ public class WeakPointMarker : MonoBehaviour
         }
         gameObject.SetActive(false);
 
-        if (m_BossHealth != null && m_BossDamageOnDestroy > 0f) {
-            m_BossHealth.OnDamage(m_BossDamageOnDestroy, position, direction, 0f, 0, 0f, attacker, attackerObject, null);
+        if (m_BossCombat != null && m_BossDamageOnDestroy > 0f) {
+            m_BossCombat.ApplyWeakPointBurstDamage(m_BossDamageOnDestroy, position, direction, attacker, attackerObject);
         }
 
-        m_BossCombat?.OnWeakPointDestroyed(this);
+        m_BossCombat.OnWeakPointDestroyed(this);
     }
 }
