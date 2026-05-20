@@ -12,15 +12,6 @@ public static class AreaDamageUtility
     private static readonly Collider[] s_Colliders = new Collider[32];
     private static readonly HashSet<Health> s_Damaged = new HashSet<Health>();
 
-    public static void DamageSphere(Vector3 center, float radius, float damage, float forceMagnitude, GameObject attacker, LayerMask layers)
-    {
-        s_Damaged.Clear();
-        var count = Physics.OverlapSphereNonAlloc(center, radius, s_Colliders, layers, QueryTriggerInteraction.Collide);
-        for (var i = 0; i < count; i++) {
-            ApplyDamage(s_Colliders[i], center, damage, forceMagnitude, attacker, 0f, layers);
-        }
-    }
-
     public static void DamageRing(Vector3 center, float innerRadius, float outerRadius, float damage, float forceMagnitude, GameObject attacker, LayerMask layers, bool requireGrounded = false)
     {
         s_Damaged.Clear();
@@ -63,10 +54,5 @@ public static class AreaDamageUtility
 
         health.Damage(damage, position, direction, forceMagnitude, 1, 0f, attacker, collider);
         return true;
-    }
-
-    private static void ApplyDamage(Collider collider, Vector3 position, float damage, float forceMagnitude, GameObject attacker, float radius, LayerMask layers)
-    {
-        TryApplyDamage(collider, position, damage, forceMagnitude, attacker, layers, s_Damaged, requireGrounded: false);
     }
 }

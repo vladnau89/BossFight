@@ -23,10 +23,7 @@ public class GiantHandSlamMotion : MonoBehaviour
 
     public bool IsPlaying => m_IsPlaying;
 
-    private void Awake()
-    {
-        CacheRestPose();
-    }
+    private void Awake() => CacheRestPose();
 
     public void Play(Transform target, Action onImpact)
     {
@@ -43,7 +40,7 @@ public class GiantHandSlamMotion : MonoBehaviour
         RestoreRestPose();
     }
 
-    public void CacheRestPose()
+    private void CacheRestPose()
     {
         m_RestLocalPosition = transform.localPosition;
         m_RestLocalRotation = transform.localRotation;
@@ -58,7 +55,6 @@ public class GiantHandSlamMotion : MonoBehaviour
 
         var raisedRotation = m_RestLocalRotation * Quaternion.Euler(m_RaiseLocalEuler);
 
-        Debug.Log("Start Raise Hand!");
         if (m_RaiseTime > 0f) {
             var elapsed = 0f;
             while (elapsed < m_RaiseTime) {
@@ -72,13 +68,10 @@ public class GiantHandSlamMotion : MonoBehaviour
             transform.localRotation = raisedRotation;
         }
 
-        Debug.Log("Start Hover Hand!");
-        
         if (m_HoverTime > 0f) {
             yield return new WaitForSeconds(m_HoverTime);
         }
 
-        Debug.Log("Start Drop Hand!");
         if (m_DropTime > 0f) {
             var elapsed = 0f;
             var startRotation = transform.rotation;

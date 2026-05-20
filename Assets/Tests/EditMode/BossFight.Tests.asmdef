@@ -4,7 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "BossFight.Runtime"
+        "BossFight.Runtime",
+        "BossFight.Boss"
     ],
     "includePlatforms": [
         "Editor"

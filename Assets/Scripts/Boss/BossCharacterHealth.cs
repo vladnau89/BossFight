@@ -6,32 +6,31 @@ using UnityEngine;
 /// </summary>
 public class BossCharacterHealth : CharacterHealth
 {
-    private BossCombat m_BossCombat;
-    private bool m_AllowBossDamage;
+    [SerializeField] private BossWeakPointRegistryComponent _weakPointRegistry;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        m_BossCombat = GetComponentInChildren<BossCombat>();
-    }
+    private bool _allowBossDamage;
 
-    public void ApplyWeakPointBurstDamage(float amount, Vector3 position, Vector3 direction, GameObject attacker, object attackerObject)
+    public void ApplyWeakPointBurstDamage(float amount, Vector3 position, Vector3 direction, GameObject attacker,
+        object attackerObject)
     {
-        m_AllowBossDamage = true;
+        _allowBossDamage = true;
         base.OnDamage(amount, position, direction, 0f, 0, 0f, attacker, attackerObject, null);
-        m_AllowBossDamage = false;
+        _allowBossDamage = false;
     }
 
-    public override void OnDamage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, float radius, GameObject attacker, object attackerObject, Collider hitCollider)
+    public override void OnDamage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames,
+        float radius, GameObject attacker, object attackerObject, Collider hitCollider)
     {
-        if (m_BossCombat != null && hitCollider != null) {
-            if (m_BossCombat.IsWeakPointCollider(hitCollider)) {
-                m_BossCombat.TryDamageWeakPoint(hitCollider, amount, position, direction, forceMagnitude, frames, attacker, attackerObject);
+        if (hitCollider != null) {
+            if (_weakPointRegistry.IsWeakPointCollider(hitCollider)) {
+                _weakPointRegistry.TryDamageWeakPoint(hitCollider, amount, position, direction, forceMagnitude, frames,
+                    attacker, attackerObject);
             }
+
             return;
         }
 
-        if (radius > 0f || !m_AllowBossDamage) {
+        if (radius > 0f || !_allowBossDamage) {
             return;
         }
 
