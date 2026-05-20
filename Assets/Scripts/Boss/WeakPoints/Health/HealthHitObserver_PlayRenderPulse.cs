@@ -1,10 +1,10 @@
 using UnityEngine;
 
-
 [DisallowMultipleComponent]
-public sealed class HealthResetObserver_ResetRenderPulse : MonoBehaviour
+public sealed class HealthHitObserver_PlayRenderPulse : MonoBehaviour
 {
     [SerializeField] private HealthComponent _health;
+    [SerializeField] private DestroyVisualComponent _destroyVisualComponent;
     [SerializeField] private RenderPulse _renderPulse;
 
     private void Awake()
@@ -19,10 +19,10 @@ public sealed class HealthResetObserver_ResetRenderPulse : MonoBehaviour
 
     private void HandleHealthChanged(HealthChangeEventData changeEventData)
     {
-        if (!changeEventData.WasReset)
+        if (!changeEventData.WasHit)
         {
             return;
         }
-        _renderPulse.ResetPulse();
+        _renderPulse.Play(_destroyVisualComponent.HitFlashDuration);
     }
 }

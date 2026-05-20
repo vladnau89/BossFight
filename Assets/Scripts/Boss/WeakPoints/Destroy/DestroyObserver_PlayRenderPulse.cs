@@ -1,10 +1,11 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class DestroyObserver_PlayDestroyVisual : MonoBehaviour
+public sealed class DestroyObserver_PlayRenderPulse : MonoBehaviour
 {
     [SerializeField] private DestroyComponent _destroyComponent;
-    [SerializeField] private WeakPointVisual _visual;
+    [SerializeField] private DestroyVisualComponent _destroyVisualComponent;
+    [SerializeField] private RenderPulse _renderPulse;
 
     private void OnEnable()
     {
@@ -16,8 +17,5 @@ public class DestroyObserver_PlayDestroyVisual : MonoBehaviour
         _destroyComponent.EventDestroyed -= OnEventDestroyed;
     }
 
-    private void OnEventDestroyed()
-    {
-        _visual.PlayDestroyed();
-    }
+    private void OnEventDestroyed() => _renderPulse.Play(_destroyVisualComponent.DestroyFlashDuration);
 }
