@@ -6,11 +6,13 @@ public sealed class HealthChangedObserver_ToDestroy : MonoBehaviour
     [SerializeField] private HealthComponent _health;
     [SerializeField] private DestroyComponent _destroy;
 
+    private void Awake() => Subscribe();
 
-    private void OnEnable()
-    {
-        _health.EventHealthChanged += OnHealthChanged;
-    }
+    private void OnDestroy() => Unsubscribe();
+
+    private void Subscribe() => _health.EventHealthChanged += OnHealthChanged;
+
+    private void Unsubscribe() => _health.EventHealthChanged -= OnHealthChanged;
 
     private void OnHealthChanged(HealthChangeEventData data)
     {

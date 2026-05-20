@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 100021}
   - component: {fileID: 840646715834658397}
   - component: {fileID: 2478036381626422561}
-  - component: {fileID: 4309154214999378261}
+  - component: {fileID: 8602191025758208573}
   m_Layer: 30
   m_Name: Pulse
   m_TagString: Untagged
@@ -474,7 +474,7 @@ MonoBehaviour:
   _health: {fileID: 100006}
   _destroyVisualComponent: {fileID: 4438865077121052553}
   _renderPulse: {fileID: 100021}
---- !u!114 &4309154214999378261
+--- !u!114 &8602191025758208573
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   - component: {fileID: 100024}
   - component: {fileID: 100023}
   - component: {fileID: 3513415574279602559}
-  - component: {fileID: 9200429633853765342}
+  - component: {fileID: 351395499424859778}
   m_Layer: 30
   m_Name: Scale
   m_TagString: Untagged
@@ -551,7 +551,7 @@ MonoBehaviour:
   _destroyComponent: {fileID: 2642823960120456146}
   _destroyVisualComponent: {fileID: 4438865077121052553}
   _renderScale: {fileID: 100023}
---- !u!114 &9200429633853765342
+--- !u!114 &351395499424859778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 2640137766174268477}
   - component: {fileID: 3934195225626315164}
   - component: {fileID: 234052809835357434}
-  - component: {fileID: 3694905258561788002}
+  - component: {fileID: 9139147697800146849}
   m_Layer: 30
   m_Name: DelayDeactivator
   m_TagString: Untagged
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destroy: {fileID: 2642823960120456146}
   _delayGameObjectActivator: {fileID: 3934195225626315164}
---- !u!114 &3694905258561788002
+--- !u!114 &9139147697800146849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 8770976977919767075}
   - component: {fileID: 1360881292015951198}
   - component: {fileID: 7665204010733999479}
-  - component: {fileID: 780494037695945048}
+  - component: {fileID: 4925744526639162990}
   m_Layer: 30
   m_Name: RootGameObject
   m_TagString: Untagged
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameObjectComponent: {fileID: 1360881292015951198}
---- !u!114 &780494037695945048
+--- !u!114 &4925744526639162990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
