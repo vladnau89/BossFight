@@ -7,6 +7,7 @@ public class BossPhaseControllerComponentTests
     private BossPhaseControllerComponent _controller;
     private TestBossCombatPhase _phase0;
     private TestBossCombatPhase _phase1;
+    private BossCombatPhase1 _phase1Presentation;
     private bool _initialized;
     private int _phase0EnterCount;
     private int _phase0ExitCount;
@@ -18,10 +19,22 @@ public class BossPhaseControllerComponentTests
         _controller = _gameObject.AddComponent<BossPhaseControllerComponent>();
         _phase0 = _gameObject.AddComponent<TestBossCombatPhase>();
         _phase1 = _gameObject.AddComponent<TestBossCombatPhase>();
+        _phase1Presentation = _gameObject.AddComponent<BossCombatPhase1>();
+
+        var presentation = _gameObject.AddComponent<BossPresentationComponent>();
+        var rangedRoot = new GameObject("Ranged");
+        var handRoot = new GameObject("Hand");
+        TestReflectionHelper.SetField(presentation, "_rangedWeaponRoot", rangedRoot);
+        TestReflectionHelper.SetField(presentation, "_giantHandRoot", handRoot);
+        TestReflectionHelper.SetField(_phase1Presentation, "_presentation", presentation);
 
         TestReflectionHelper.SetField(_controller, "_phases", new BossCombatPhase[] { _phase0, _phase1 });
         TestReflectionHelper.SetField(_controller, "_startPhaseIndex", 0);
+        TestReflectionHelper.SetField(_controller, "_phase1", _phase1Presentation);
 
+        _initialized = false;
+        _phase0EnterCount = 0;
+        _phase0ExitCount = 0;
         _phase0.PhaseInitialized += () => _initialized = true;
         _phase0.PhaseEntered += () => _phase0EnterCount++;
         _phase0.PhaseExited += () => _phase0ExitCount++;

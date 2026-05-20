@@ -32,8 +32,10 @@ public class BossNextPhaseTransitionObserverTests
         TestReflectionHelper.SetField(_controller, "_phase1", _phase1);
 
         var bindings = new BossPhaseEnterBinding[1];
-        TestReflectionHelper.SetField(bindings[0], "_phaseIndex", 1);
-        TestReflectionHelper.SetField(bindings[0], "_enterCondition", _phase1EnterCondition);
+        object binding = bindings[0];
+        TestReflectionHelper.SetField(binding, "_phaseIndex", 1);
+        TestReflectionHelper.SetField(binding, "_enterCondition", _phase1EnterCondition);
+        bindings[0] = (BossPhaseEnterBinding)binding;
         TestReflectionHelper.SetField(_observer, "_phaseController", _controller);
         TestReflectionHelper.SetField(_observer, "_enterBindings", bindings);
 
@@ -51,7 +53,7 @@ public class BossNextPhaseTransitionObserverTests
     {
         _phase1EnterCondition.ShouldEnterResult = true;
 
-        _observer.SendMessage("Update");
+        TestReflectionHelper.Invoke(_observer, "Update");
 
         Assert.That(_controller.CurrentPhaseIndex, Is.EqualTo(1));
     }
