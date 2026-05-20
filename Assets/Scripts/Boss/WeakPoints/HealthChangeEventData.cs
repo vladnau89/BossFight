@@ -1,7 +1,4 @@
-/// <summary>
-/// Snapshot passed to weak point health observers.
-/// </summary>
-public readonly struct WeakPointHealthChange
+public readonly struct HealthChangeEventData
 {
     public float PreviousHealth { get; }
     public float CurrentHealth { get; }
@@ -11,7 +8,7 @@ public readonly struct WeakPointHealthChange
     public bool WasHit { get; }
     public bool WasDestroyed { get; }
 
-    public WeakPointHealthChange(float previousHealth, float currentHealth, float maxHealth, bool wasReset)
+    public HealthChangeEventData(float previousHealth, float currentHealth, float maxHealth, bool wasReset)
     {
         PreviousHealth = previousHealth;
         CurrentHealth = currentHealth;

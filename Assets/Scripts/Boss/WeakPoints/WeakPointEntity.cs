@@ -6,16 +6,19 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class WeakPointEntity : MonoBehaviour
 {
-    [SerializeField] private WeakPointHealth _health;
-    [SerializeField] private TriggerComponent _trigger;
+    [SerializeField] private HealthComponent _health;
+    [SerializeField] private DamageValueComponent _damageValue;
+    [SerializeField] private ColliderComponent _trigger;
+    [SerializeField] private GameObjectActivator _activator;
+    [SerializeField] private DestroyComponent _destroy;
 
     public Collider Collider => _trigger.Collider;
-    public float BossDamageOnDestroy => _health.BossDamageOnDestroy;
-    public bool IsDestroyed => _health.IsDestroyed;
+    public float BossDamageOnDestroy => _damageValue.DamageValue;
+    public bool IsDestroyed => _destroy.IsDestroyed;
     
-    public bool TakeDamage(float amount) => _health.ApplyDamage(amount);
+    public bool TakeDamage(float amount) => _health.ChangeHealth(-amount);
 
     public void ResetHealth() => _health.ResetHealth();
 
-    public void SetActive(bool active) => gameObject.SetActive(active);
+    public void SetActive(bool active) => _activator.SetActive(active);
 }
