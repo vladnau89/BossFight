@@ -11,9 +11,9 @@ public abstract class BossCombatPhase : MonoBehaviour
     [SerializeField] [Range(-1f, 1f)] protected float m_EnterAtHealthFraction = -1f;
 
     [SerializeField] protected GameObject m_WeakPointsRoot;
-    [SerializeField] protected WeakPointMarker[] m_WeakPoints;
+    [SerializeField] protected WeakPointEntity[] m_WeakPoints;
 
-    public WeakPointMarker[] WeakPoints => m_WeakPoints;
+    public WeakPointEntity[] WeakPoints => m_WeakPoints;
     public float EnterAtHealthFraction => m_EnterAtHealthFraction;
 
     public bool HasHealthEnterThreshold => m_EnterAtHealthFraction >= 0f;
@@ -25,7 +25,7 @@ public abstract class BossCombatPhase : MonoBehaviour
         return HasHealthEnterThreshold && healthFraction <= m_EnterAtHealthFraction;
     }
     
-    public void RegisterWeakPoints(Dictionary<Collider, WeakPointMarker> map)
+    public void RegisterWeakPoints(Dictionary<Collider, WeakPointEntity> map)
     {
         if (m_WeakPoints == null) {
             return;

@@ -15,7 +15,7 @@ public class BossCombat : MonoBehaviour
     [SerializeField] private Health m_Health;
     
     private int m_CurrentPhaseIndex;
-    private Dictionary<Collider, WeakPointMarker> m_WeakPointMarkersMap = new();
+    private Dictionary<Collider, WeakPointEntity> m_WeakPointMarkersMap = new();
     
     public BossCombatPhase CurrentPhase => m_Phases[m_CurrentPhaseIndex];
     public bool IsPhase2 => m_CurrentPhaseIndex == 1;
@@ -161,7 +161,7 @@ public class BossCombat : MonoBehaviour
         return wasDamaged;
     }
 
-    private bool TryGetWeakPoint(Collider hitCollider, out WeakPointMarker weakPoint) =>
+    private bool TryGetWeakPoint(Collider hitCollider, out WeakPointEntity weakPoint) =>
         m_WeakPointMarkersMap.TryGetValue(hitCollider, out weakPoint);
 
     private void ApplyWeakPointBurstDamage(float amount, Vector3 position, Vector3 direction, GameObject attacker,

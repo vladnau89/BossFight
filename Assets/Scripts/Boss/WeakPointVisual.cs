@@ -8,82 +8,84 @@ public class WeakPointVisual : MonoBehaviour
 {
     private static readonly int EmissionColorId = Shader.PropertyToID("_EmissionColor");
 
-    [SerializeField] private Renderer m_Renderer;
-    [SerializeField] private float m_PulseSpeed = 4f;
-    [SerializeField] private float m_MinEmission = 1.2f;
-    [SerializeField] private float m_MaxEmission = 3.5f;
-    [SerializeField] private Color m_EmissionColor = new Color(1f, 0.4f, 0.05f);
-    [SerializeField] private float m_HitFlashDuration = 0.12f;
-    [SerializeField] private float m_HitFlashEmission = 6f;
-    [SerializeField] private float m_DestroyFlashDuration = 0.25f;
+    [SerializeField] private Renderer _renderer;
+    [SerializeField] private float _pulseSpeed = 4f;
+    [SerializeField] private float _minEmission = 1.2f;
+    [SerializeField] private float _maxEmission = 3.5f;
+    [SerializeField] private Color _emissionColor = new Color(1f, 0.4f, 0.05f);
+    [SerializeField] private float _hitFlashDuration = 0.12f;
+    [SerializeField] private float _hitFlashEmission = 6f;
+    [SerializeField] private float _destroyFlashDuration = 0.25f;
 
-    private MaterialPropertyBlock m_PropertyBlock;
-    private float m_HitFlashTimer;
-    private float m_DestroyFlashTimer;
-    private Vector3 m_BaseScale;
+    private MaterialPropertyBlock _propertyBlock;
+    private float _hitFlashTimer;
+    private float _destroyFlashTimer;
+    private Vector3 _baseScale;
+
+    public float DestroyFlashDuration => _destroyFlashDuration;
 
     private void Awake()
     {
-        m_PropertyBlock = new MaterialPropertyBlock();
-        m_BaseScale = transform.localScale;
+        _propertyBlock = new MaterialPropertyBlock();
+        _baseScale = transform.localScale;
     }
 
     private void OnEnable()
     {
-        m_HitFlashTimer = 0f;
-        m_DestroyFlashTimer = 0f;
-        transform.localScale = m_BaseScale;
+        _hitFlashTimer = 0f;
+        _destroyFlashTimer = 0f;
+        if (_baseScale.sqrMagnitude > 0f) {
+            transform.localScale = _baseScale;
+        }
     }
 
     private void Update()
     {
-        if (m_Renderer == null) {
+        if (_renderer == null) {
             return;
         }
 
-        m_HitFlashTimer = Mathf.Max(0f, m_HitFlashTimer - Time.deltaTime);
-        m_DestroyFlashTimer = Mathf.Max(0f, m_DestroyFlashTimer - Time.deltaTime);
+        _hitFlashTimer = Mathf.Max(0f, _hitFlashTimer - Time.deltaTime);
+        _destroyFlashTimer = Mathf.Max(0f, _destroyFlashTimer - Time.deltaTime);
 
-        var emissionScale = m_MinEmission + (Mathf.Sin(Time.time * m_PulseSpeed) * 0.5f + 0.5f) * (m_MaxEmission - m_MinEmission);
-        if (m_HitFlashTimer > 0f) {
-            emissionScale = m_HitFlashEmission;
-        } else if (m_DestroyFlashTimer > 0f) {
-            emissionScale = m_HitFlashEmission * 1.5f;
+        var emissionScale = _minEmission + (Mathf.Sin(Time.time * _pulseSpeed) * 0.5f + 0.5f) * (_maxEmission - _minEmission);
+        if (_hitFlashTimer > 0f) {
+            emissionScale = _hitFlashEmission;
+        } else if (_destroyFlashTimer > 0f) {
+            emissionScale = _hitFlashEmission * 1.5f;
         }
 
-        m_Renderer.GetPropertyBlock(m_PropertyBlock);
-        m_PropertyBlock.SetColor(EmissionColorId, m_EmissionColor * emissionScale);
-        m_Renderer.SetPropertyBlock(m_PropertyBlock);
+        _renderer.GetPropertyBlock(_propertyBlock);
+        _propertyBlock.SetColor(EmissionColorId, _emissionColor * emissionScale);
+        _renderer.SetPropertyBlock(_propertyBlock);
 
-        if (m_DestroyFlashTimer > 0f) {
-            var t = 1f - (m_DestroyFlashTimer / m_DestroyFlashDuration);
-            var scale = Mathf.Lerp(m_BaseScale.x * 1.6f, 0.01f, t);
-            transform.localScale = m_BaseScale * (scale / m_BaseScale.x);
+        if (_destroyFlashTimer > 0f) {
+            var t = 1f - (_destroyFlashTimer / _destroyFlashDuration);
+            var scale = Mathf.Lerp(_baseScale.x * 1.6f, 0.01f, t);
+            transform.localScale = _baseScale * (scale / _baseScale.x);
         }
     }
 
     public void PlayHitFlash()
     {
-        m_HitFlashTimer = m_HitFlashDuration;
+        _hitFlashTimer = _hitFlashDuration;
     }
-
-    public float DestroyFlashDuration => m_DestroyFlashDuration;
 
     public void PlayDestroyed()
     {
-        m_DestroyFlashTimer = m_DestroyFlashDuration;
-        m_HitFlashTimer = 0f;
+        _destroyFlashTimer = _destroyFlashDuration;
+        _hitFlashTimer = 0f;
     }
 
     public void ResetVisual()
     {
-        m_HitFlashTimer = 0f;
-        m_DestroyFlashTimer = 0f;
-        if (m_BaseScale.sqrMagnitude > 0f) {
-            transform.localScale = m_BaseScale;
+        _hitFlashTimer = 0f;
+        _destroyFlashTimer = 0f;
+        if (_baseScale.sqrMagnitude > 0f) {
+            transform.localScale = _baseScale;
         }
-        if (m_Renderer != null) {
-            m_Renderer.SetPropertyBlock(null);
+        if (_renderer != null) {
+            _renderer.SetPropertyBlock(null);
         }
     }
 }
