@@ -9,50 +9,50 @@ public class GiantHandSlamDamage : MonoBehaviour
 {
     private static readonly Collider[] s_OverlapResults = new Collider[16];
 
-    [SerializeField] private BoxCollider m_Collider;
-    [SerializeField] private float m_HitDuration = 0.65f;
+    [SerializeField] private BoxCollider _collider;
+    [SerializeField] private float _hitDuration = 0.65f;
 
-    private bool m_Active;
-    private float m_Damage;
-    private float m_ForceMagnitude;
-    private GameObject m_Attacker;
-    private LayerMask m_TargetLayers = 1 << LayerManager.Character;
-    private readonly System.Collections.Generic.HashSet<Opsive.UltimateCharacterController.Traits.Health> m_HitThisSlam = new();
+    private bool _active;
+    private float _damage;
+    private float _forceMagnitude;
+    private GameObject _attacker;
+    private LayerMask _targetLayers = 1 << LayerManager.Character;
+    private readonly System.Collections.Generic.HashSet<Opsive.UltimateCharacterController.Traits.Health> _hitThisSlam = new();
 
     private void Awake()
     {
-        if (m_Collider == null) {
-            m_Collider = GetComponent<BoxCollider>();
+        if (_collider == null) {
+            _collider = GetComponent<BoxCollider>();
         }
-        m_Collider.isTrigger = true;
-        m_Collider.enabled = false;
+        _collider.isTrigger = true;
+        _collider.enabled = false;
     }
 
     public void BeginSlam(float damage, float forceMagnitude, GameObject attacker, LayerMask targetLayers)
     {
-        m_Damage = damage;
-        m_ForceMagnitude = forceMagnitude;
-        m_Attacker = attacker;
-        m_TargetLayers = targetLayers;
-        m_HitThisSlam.Clear();
-        m_Active = true;
-        m_Collider.enabled = true;
+        _damage = damage;
+        _forceMagnitude = forceMagnitude;
+        _attacker = attacker;
+        _targetLayers = targetLayers;
+        _hitThisSlam.Clear();
+        _active = true;
+        _collider.enabled = true;
         ApplyOverlapDamage();
         CancelInvoke(nameof(EndSlam));
-        Invoke(nameof(EndSlam), m_HitDuration);
+        Invoke(nameof(EndSlam), _hitDuration);
     }
 
     public void EndSlam()
     {
-        m_Active = false;
-        if (m_Collider != null) {
-            m_Collider.enabled = false;
+        _active = false;
+        if (_collider != null) {
+            _collider.enabled = false;
         }
     }
 
     private void FixedUpdate()
     {
-        if (!m_Active) {
+        if (!_active) {
             return;
         }
 
@@ -61,15 +61,15 @@ public class GiantHandSlamDamage : MonoBehaviour
 
     private void ApplyOverlapDamage()
     {
-        if (m_Collider == null || !m_Collider.enabled) {
+        if (_collider == null || !_collider.enabled) {
             return;
         }
 
-        var center = m_Collider.bounds.center;
-        var halfExtents = m_Collider.bounds.extents;
-        var count = Physics.OverlapBoxNonAlloc(center, halfExtents, s_OverlapResults, m_Collider.transform.rotation, m_TargetLayers, QueryTriggerInteraction.Collide);
+        var center = _collider.bounds.center;
+        var halfExtents = _collider.bounds.extents;
+        var count = Physics.OverlapBoxNonAlloc(center, halfExtents, s_OverlapResults, _collider.transform.rotation, _targetLayers, QueryTriggerInteraction.Collide);
         for (var i = 0; i < count; i++) {
-            AreaDamageUtility.TryApplyDamage(s_OverlapResults[i], center, m_Damage, m_ForceMagnitude, m_Attacker, m_TargetLayers, m_HitThisSlam, requireGrounded: false);
+            AreaDamageUtility.TryApplyDamage(s_OverlapResults[i], center, _damage, _forceMagnitude, _attacker, _targetLayers, _hitThisSlam, requireGrounded: false);
         }
     }
 

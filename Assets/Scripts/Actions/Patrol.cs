@@ -15,8 +15,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         [Tooltip("The waypoints to patrol.")]
         public SharedGameObjectList waypoints;
 
-        private int m_WaypointIndex;
-        private float m_PauseTime = -1f;
+        private int _waypointIndex;
+        private float _pauseTime = -1f;
 
         protected override Vector3 GetDestination()
         {
@@ -24,14 +24,14 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 return transform.position;
             }
 
-            var waypoint = waypoints.Value[m_WaypointIndex];
+            var waypoint = waypoints.Value[_waypointIndex];
             return waypoint != null ? waypoint.transform.position : transform.position;
         }
 
         public override void OnStart()
         {
-            m_PauseTime = -1f;
-            m_WaypointIndex = 0;
+            _pauseTime = -1f;
+            _waypointIndex = 0;
 
             if (waypoints != null && waypoints.Value != null && waypoints.Value.Count > 0) {
                 var distance = float.MaxValue;
@@ -44,7 +44,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                     var localDistance = Vector3.SqrMagnitude(transform.position - waypoint.transform.position);
                     if (localDistance < distance) {
                         distance = localDistance;
-                        m_WaypointIndex = i;
+                        _waypointIndex = i;
                     }
                 }
             }
@@ -58,8 +58,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 return TaskStatus.Failure;
             }
 
-            if (m_PauseTime > 0f) {
-                m_PauseTime -= Time.deltaTime;
+            if (_pauseTime > 0f) {
+                _pauseTime -= Time.deltaTime;
                 return TaskStatus.Running;
             }
 
@@ -67,15 +67,15 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 return TaskStatus.Failure;
             }
 
-            if (m_PauseTime <= 0f && !navMeshAgent.pathPending &&
+            if (_pauseTime <= 0f && !navMeshAgent.pathPending &&
                 navMeshAgent.remainingDistance <= arriveDistance.Value) {
                 if (randomPatrol.Value) {
-                    m_WaypointIndex = Random.Range(0, waypoints.Value.Count);
+                    _waypointIndex = Random.Range(0, waypoints.Value.Count);
                 } else {
-                    m_WaypointIndex = (m_WaypointIndex + 1) % waypoints.Value.Count;
+                    _waypointIndex = (_waypointIndex + 1) % waypoints.Value.Count;
                 }
 
-                m_PauseTime = waypointPauseDuration.Value;
+                _pauseTime = waypointPauseDuration.Value;
                 SetDestination(GetDestination());
             }
 

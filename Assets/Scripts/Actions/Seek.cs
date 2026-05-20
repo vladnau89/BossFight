@@ -12,11 +12,11 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         [Tooltip("If the target is null then use the target position.")]
         public SharedVector3 targetPosition;
 
-        private bool m_DynamicTarget;
+        private bool _dynamicTarget;
 
         protected override Vector3 GetDestination()
         {
-            if (m_DynamicTarget && target.Value != null) {
+            if (_dynamicTarget && target.Value != null) {
                 return target.Value.transform.position;
             }
 
@@ -25,7 +25,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
 
         public override void OnStart()
         {
-            m_DynamicTarget = target != null && target.Value != null;
+            _dynamicTarget = target != null && target.Value != null;
             base.OnStart();
         }
 

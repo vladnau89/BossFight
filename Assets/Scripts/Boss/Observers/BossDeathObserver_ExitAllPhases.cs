@@ -2,7 +2,7 @@ using Opsive.UltimateCharacterController.Traits;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public sealed class BossDeathObserver_ResetToStartPhase : MonoBehaviour
+public sealed class BossDeathObserver_ExitAllPhases : MonoBehaviour
 {
     [SerializeField] private Health _health;
     [SerializeField] private BossPhaseControllerComponent _phaseController;
@@ -11,6 +11,5 @@ public sealed class BossDeathObserver_ResetToStartPhase : MonoBehaviour
 
     private void OnDestroy() => _health.OnDeathEvent.RemoveListener(OnDeath);
 
-    private void OnDeath(Vector3 position, Vector3 force, GameObject attacker) =>
-        _phaseController.ResetToStartPhase();
+    private void OnDeath(Vector3 position, Vector3 force, GameObject attacker) => _phaseController.ExitAllPhases();
 }

@@ -13,12 +13,12 @@ public class HomingProjectileInspector : ProjectileInspector
     {
         if (Foldout("Homing")) {
             EditorGUI.indentLevel++;
-            EditorGUILayout.PropertyField(PropertyFromName("m_TurnRate"));
-            EditorGUILayout.PropertyField(PropertyFromName("m_MaxHomingDistance"));
-            EditorGUILayout.PropertyField(PropertyFromName("m_MaxHomingConeAngle"));
-            EditorGUILayout.PropertyField(PropertyFromName("m_MaxDeflectionAngle"));
-            EditorGUILayout.PropertyField(PropertyFromName("m_StopHomingWhenTargetBehind"));
-            EditorGUILayout.PropertyField(PropertyFromName("m_RotateTowardsVelocity"));
+            EditorGUILayout.PropertyField(PropertyFromName("_turnRate"));
+            EditorGUILayout.PropertyField(PropertyFromName("_maxHomingDistance"));
+            EditorGUILayout.PropertyField(PropertyFromName("_maxHomingConeAngle"));
+            EditorGUILayout.PropertyField(PropertyFromName("_maxDeflectionAngle"));
+            EditorGUILayout.PropertyField(PropertyFromName("_stopHomingWhenTargetBehind"));
+            EditorGUILayout.PropertyField(PropertyFromName("_rotateTowardsVelocity"));
             EditorGUI.indentLevel--;
         }
 

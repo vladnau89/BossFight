@@ -11,70 +11,70 @@ namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
     public class FaceLookTarget : Action
     {
         [Tooltip("A reference to the agent. If null the task GameObject is used.")]
-        public SharedGameObject m_TargetGameObject;
+        public SharedGameObject _targetGameObject;
 
         [Tooltip("The object the character should face.")]
-        public SharedGameObject m_LookTarget;
+        public SharedGameObject _lookTarget;
 
         [Tooltip("Wait until the body is facing the target before returning success.")]
-        public SharedBool m_WaitUntilFacing = true;
+        public SharedBool _waitUntilFacing = true;
 
         [Tooltip("Maximum angle (degrees) between body forward and target to count as facing.")]
-        public SharedFloat m_ArrivalAngle = 5f;
+        public SharedFloat _arrivalAngle = 5f;
 
         [Tooltip("Start the Aim ability so UCC rotates the body toward the look target.")]
-        public SharedBool m_StartAimAbility = true;
+        public SharedBool _startAimAbility = true;
 
         [Tooltip("Stop Aim and clear the look target when the task ends.")]
-        public SharedBool m_StopOnEnd = true;
+        public SharedBool _stopOnEnd = true;
 
         [Tooltip("Return success even if Aim could not be started.")]
-        public SharedBool m_AlwaysReturnSuccess;
+        public SharedBool _alwaysReturnSuccess;
 
-        private GameObject m_PrevTarget;
-        private UltimateCharacterLocomotion m_CharacterLocomotion;
-        private LocalLookSource m_LocalLookSource;
-        private Aim m_AimAbility;
-        private bool m_StartedAim;
+        private GameObject _prevTarget;
+        private UltimateCharacterLocomotion _characterLocomotion;
+        private LocalLookSource _localLookSource;
+        private Aim _aimAbility;
+        private bool _startedAim;
 
         public override void OnStart()
         {
-            m_StartedAim = false;
-            var target = GetDefaultGameObject(m_TargetGameObject.Value);
-            if (target == m_PrevTarget) {
+            _startedAim = false;
+            var target = GetDefaultGameObject(_targetGameObject.Value);
+            if (target == _prevTarget) {
                 return;
             }
 
-            m_CharacterLocomotion = target.GetCachedComponent<UltimateCharacterLocomotion>();
-            m_LocalLookSource = target.GetCachedComponent<LocalLookSource>();
-            var aimAbilities = m_CharacterLocomotion != null
-                ? m_CharacterLocomotion.GetAbilities<Aim>()
+            _characterLocomotion = target.GetCachedComponent<UltimateCharacterLocomotion>();
+            _localLookSource = target.GetCachedComponent<LocalLookSource>();
+            var aimAbilities = _characterLocomotion != null
+                ? _characterLocomotion.GetAbilities<Aim>()
                 : null;
-            m_AimAbility = aimAbilities != null && aimAbilities.Length > 0 ? aimAbilities[0] : null;
-            m_PrevTarget = target;
+            _aimAbility = aimAbilities != null && aimAbilities.Length > 0 ? aimAbilities[0] : null;
+            _prevTarget = target;
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (m_CharacterLocomotion == null || m_LocalLookSource == null) {
+            if (_characterLocomotion == null || _localLookSource == null) {
                 return TaskStatus.Failure;
             }
 
-            if (m_LookTarget.Value == null) {
+            if (_lookTarget.Value == null) {
                 return TaskStatus.Failure;
             }
 
-            m_LocalLookSource.Target = m_LookTarget.Value.transform;
+            _localLookSource.Target = _lookTarget.Value.transform;
 
-            if (m_StartAimAbility.Value && m_AimAbility != null && !m_AimAbility.IsActive) {
-                if (m_CharacterLocomotion.TryStartAbility(m_AimAbility)) {
-                    m_StartedAim = true;
-                } else if (!m_AlwaysReturnSuccess.Value) {
+            if (_startAimAbility.Value && _aimAbility != null && !_aimAbility.IsActive) {
+                if (_characterLocomotion.TryStartAbility(_aimAbility)) {
+                    _startedAim = true;
+                } else if (!_alwaysReturnSuccess.Value) {
                     return TaskStatus.Failure;
                 }
             }
 
-            if (!m_WaitUntilFacing.Value) {
+            if (!_waitUntilFacing.Value) {
                 return TaskStatus.Success;
             }
 
@@ -83,39 +83,39 @@ namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
 
         public override void OnEnd()
         {
-            if (!m_StopOnEnd.Value || m_CharacterLocomotion == null) {
+            if (!_stopOnEnd.Value || _characterLocomotion == null) {
                 return;
             }
 
-            if (m_StartedAim && m_AimAbility != null && m_AimAbility.IsActive) {
-                m_CharacterLocomotion.TryStopAbility(m_AimAbility);
+            if (_startedAim && _aimAbility != null && _aimAbility.IsActive) {
+                _characterLocomotion.TryStopAbility(_aimAbility);
             }
 
-            if (m_LocalLookSource != null) {
-                m_LocalLookSource.Target = null;
+            if (_localLookSource != null) {
+                _localLookSource.Target = null;
             }
         }
 
         private bool IsFacingTarget()
         {
-            var direction = m_LookTarget.Value.transform.position - m_CharacterLocomotion.transform.position;
+            var direction = _lookTarget.Value.transform.position - _characterLocomotion.transform.position;
             direction.y = 0f;
             if (direction.sqrMagnitude < 0.0001f) {
                 return true;
             }
 
-            return Vector3.Angle(m_CharacterLocomotion.transform.forward, direction.normalized) <= m_ArrivalAngle.Value;
+            return Vector3.Angle(_characterLocomotion.transform.forward, direction.normalized) <= _arrivalAngle.Value;
         }
 
         public override void OnReset()
         {
-            m_TargetGameObject = null;
-            m_LookTarget = null;
-            m_WaitUntilFacing = true;
-            m_ArrivalAngle = 5f;
-            m_StartAimAbility = true;
-            m_StopOnEnd = true;
-            m_AlwaysReturnSuccess = false;
+            _targetGameObject = null;
+            _lookTarget = null;
+            _waitUntilFacing = true;
+            _arrivalAngle = 5f;
+            _startAimAbility = true;
+            _stopOnEnd = true;
+            _alwaysReturnSuccess = false;
         }
     }
 }

@@ -3,25 +3,24 @@ using UnityEngine;
 namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
 {
     [TaskCategory("Ultimate Character Controller")]
-    [TaskDescription("Returns success when the boss has entered phase 2 (below health threshold).")]
     public class BossCombatIsPhase2 : Conditional
     {
-        public SharedGameObject m_Boss;
+        public SharedGameObject _boss;
 
-        private BossCombat m_Combat;
+        private BossCombat _combat;
 
         public override void OnStart()
         {
-            var boss = GetDefaultGameObject(m_Boss.Value);
-            m_Combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
+            var boss = GetDefaultGameObject(_boss.Value);
+            _combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (m_Combat == null) {
+            if (_combat == null) {
                 return TaskStatus.Failure;
             }
-            return m_Combat.IsPhase2 ? TaskStatus.Success : TaskStatus.Failure;
+            return _combat.IsPhase2 ? TaskStatus.Success : TaskStatus.Failure;
         }
     }
 }

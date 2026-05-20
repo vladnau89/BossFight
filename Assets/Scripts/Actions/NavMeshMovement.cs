@@ -24,7 +24,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         public SharedBool updateRotation = true;
 
         protected NavMeshAgent navMeshAgent;
-        private bool m_StartedAgent;
+        private bool _startedAgent;
 
         public override void OnAwake()
         {
@@ -44,7 +44,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
 
             if (!navMeshAgent.enabled) {
                 navMeshAgent.enabled = true;
-                m_StartedAgent = true;
+                _startedAgent = true;
             }
 
             SetDestination(GetDestination());
@@ -81,9 +81,9 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 navMeshAgent.ResetPath();
             }
 
-            if (m_StartedAgent) {
+            if (_startedAgent) {
                 navMeshAgent.enabled = false;
-                m_StartedAgent = false;
+                _startedAgent = false;
             }
         }
 

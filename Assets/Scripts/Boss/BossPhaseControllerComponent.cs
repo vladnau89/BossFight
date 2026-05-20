@@ -40,12 +40,15 @@ public sealed class BossPhaseControllerComponent : MonoBehaviour
         _phase1.ShowRanged();
     }
 
-    public void ResetToStartPhase()
+    public void ExitAllPhases()
     {
         foreach (var phase in _phases) {
             phase.OnPhaseExit();
         }
+    }
 
+    public void EnterStartPhase()
+    {
         _currentPhaseIndex = Mathf.Clamp(_startPhaseIndex, 0, _phases.Length - 1);
         CurrentPhase.OnPhaseEnter();
     }

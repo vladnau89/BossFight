@@ -9,26 +9,26 @@ namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
             GiantHand
         }
 
-        public SharedGameObject m_Boss;
-        public Phase m_Phase = Phase.Ranged;
+        public SharedGameObject _boss;
+        public Phase _phase = Phase.Ranged;
 
-        private BossCombat m_Combat;
+        private BossCombat _combat;
 
         public override void OnStart()
         {
-            var boss = GetDefaultGameObject(m_Boss.Value);
-            m_Combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
+            var boss = GetDefaultGameObject(_boss.Value);
+            _combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (m_Combat == null) {
+            if (_combat == null) {
                 return TaskStatus.Failure;
             }
-            if (m_Phase == Phase.GiantHand) {
-                m_Combat.ShowGiantHandPhase();
+            if (_phase == Phase.GiantHand) {
+                _combat.ShowGiantHandPhase();
             } else {
-                m_Combat.ShowRangedPhase();
+                _combat.ShowRangedPhase();
             }
             return TaskStatus.Success;
         }

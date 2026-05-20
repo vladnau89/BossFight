@@ -25,19 +25,19 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         [Tooltip("The number of retries before the agent gives up.")]
         public SharedInt targetRetries = 1;
 
-        private Vector3 m_Destination;
-        private float m_PauseTime = -1f;
+        private Vector3 _destination;
+        private float _pauseTime = -1f;
 
         protected override Vector3 GetDestination()
         {
-            return m_Destination;
+            return _destination;
         }
 
         public override void OnStart()
         {
-            m_PauseTime = -1f;
+            _pauseTime = -1f;
             if (!TrySetNewDestination()) {
-                m_Destination = transform.position;
+                _destination = transform.position;
             }
 
             base.OnStart();
@@ -45,8 +45,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
 
         public override TaskStatus OnUpdate()
         {
-            if (m_PauseTime > 0f) {
-                m_PauseTime -= Time.deltaTime;
+            if (_pauseTime > 0f) {
+                _pauseTime -= Time.deltaTime;
                 return TaskStatus.Running;
             }
 
@@ -54,17 +54,17 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 return TaskStatus.Failure;
             }
 
-            if (m_PauseTime <= 0f && !navMeshAgent.pathPending &&
+            if (_pauseTime <= 0f && !navMeshAgent.pathPending &&
                 navMeshAgent.remainingDistance <= arriveDistance.Value) {
                 if (!TrySetNewDestination()) {
                     return TaskStatus.Running;
                 }
 
                 if (maxPauseDuration.Value > 0f || minPauseDuration.Value > 0f) {
-                    m_PauseTime = Random.Range(minPauseDuration.Value, maxPauseDuration.Value);
+                    _pauseTime = Random.Range(minPauseDuration.Value, maxPauseDuration.Value);
                 }
 
-                SetDestination(m_Destination);
+                SetDestination(_destination);
             }
 
             return TaskStatus.Running;
@@ -84,7 +84,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 var targetPosition = transform.position + direction.normalized * distance;
 
                 if (NavMesh.SamplePosition(targetPosition, out var hit, maxWanderDistance.Value, NavMesh.AllAreas)) {
-                    m_Destination = hit.position;
+                    _destination = hit.position;
                     return true;
                 }
             }

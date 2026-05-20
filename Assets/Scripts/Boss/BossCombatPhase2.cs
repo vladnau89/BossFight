@@ -6,7 +6,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class BossCombatPhase2 : BossCombatPhase
 {
-    [SerializeField] private BossPhase2ChestPulseComponent _chestPulse;
+    [SerializeField] private BossChestPulseComponent _chestPulse;
 
     public override bool InProgress => _chestPulse.IsChestPulseInProgress;
 

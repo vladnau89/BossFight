@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400001}
   - component: {fileID: 11400001}
+  - component: {fileID: 11400002}
   m_Layer: 0
   m_Name: GroundShockwave
   m_TagString: Untagged
@@ -46,21 +47,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6478990abcdef12345602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 10
-  m_Width: 2
-  m_MaxRadius: 20
-  m_Damage: 12
-  m_ForceMagnitude: 2
-  m_TargetLayers:
+  _speed: 10
+  _width: 2
+  _maxRadius: 20
+  _damage: 12
+  _forceMagnitude: 2
+  _targetLayers:
     serializedVersion: 2
     m_Bits: 3221225472
-  m_OuterRing: {fileID: 0}
-  m_InnerRing: {fileID: 0}
-  m_Segments: 48
-  m_VisualHeightOffset: 0.08
-  m_OuterLineWidth: 0.45
-  m_InnerLineWidth: 0.25
-  m_Color: {r: 1, g: 0.5, b: 0.15, a: 0.9}
+  _visual: {fileID: 11400002}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2efc4da537014fdbb13c1ba61631c2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _outerRing: {fileID: 7602409803005275339}
+  _innerRing: {fileID: 1994390325830460833}
+  _segments: 48
+  _visualHeightOffset: 0.08
+  _outerLineWidth: 0.45
+  _innerLineWidth: 0.25
+  _color: {r: 1, g: 0.5, b: 0.15, a: 0.9}
 --- !u!1 &5520351983825443999
 GameObject:
   m_ObjectHideFlags: 0

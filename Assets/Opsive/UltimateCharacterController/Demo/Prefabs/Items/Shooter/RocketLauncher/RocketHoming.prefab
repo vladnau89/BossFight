@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &1937596618017326
 GameObject:
@@ -167,13 +167,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Lifespan: 10
-  m_TurnRate: 90
-  m_MaxHomingDistance: 150
-  m_MaxHomingConeAngle: 60
-  m_MaxDeflectionAngle: 45
-  m_StopHomingWhenTargetBehind: 1
-  m_RotateTowardsVelocity: 1
-  m_HomingTarget: {fileID: 0}
+  _turnRate: 90
+  _maxHomingDistance: 150
+  _maxHomingConeAngle: 60
+  _maxDeflectionAngle: 45
+  _stopHomingWhenTargetBehind: 1
+  _rotateTowardsVelocity: 1
+  _homingTarget: {fileID: 0}
 --- !u!136 &136031584323620978
 CapsuleCollider:
   m_ObjectHideFlags: 0

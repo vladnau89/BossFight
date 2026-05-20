@@ -5,35 +5,35 @@ namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
     [TaskCategory("Ultimate Character Controller")]
     public class BossCombatHandSlam : Action
     {
-        public SharedGameObject m_Boss;
-        public SharedGameObject m_Target;
+        public SharedGameObject _boss;
+        public SharedGameObject _target;
 
-        private BossCombat m_Combat;
-        private bool m_Started;
+        private BossCombat _combat;
+        private bool _started;
 
         public override void OnStart()
         {
-            var boss = GetDefaultGameObject(m_Boss.Value);
-            m_Combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
-            m_Started = false;
+            var boss = GetDefaultGameObject(_boss.Value);
+            _combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
+            _started = false;
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (m_Combat == null) {
+            if (_combat == null) {
                 return TaskStatus.Failure;
             }
 
-            if (!m_Started) {
-                m_Started = true;
+            if (!_started) {
+                _started = true;
                 Transform target = null;
-                if (m_Target != null && m_Target.Value != null) {
-                    target = m_Target.Value.transform;
+                if (_target != null && _target.Value != null) {
+                    target = _target.Value.transform;
                 }
-                m_Combat.PerformHandSlam(target);
+                _combat.PerformHandSlam(target);
             }
 
-            if (m_Combat.IsInProgress) {
+            if (_combat.IsInProgress) {
                 return TaskStatus.Running;
             }
 

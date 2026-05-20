@@ -1,33 +1,34 @@
+using UnityEngine;
+
 namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
 {
     [TaskCategory("Ultimate Character Controller")]
-    [TaskDescription("Phase 2: shock pulse from the boss and expose chest weak points.")]
     public class BossCombatChestPulse : Action
     {
-        public SharedGameObject m_Boss;
+        public SharedGameObject _boss;
 
-        private BossCombat m_Combat;
-        private bool m_Started;
+        private BossCombat _combat;
+        private bool _started;
 
         public override void OnStart()
         {
-            var boss = GetDefaultGameObject(m_Boss.Value);
-            m_Combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
-            m_Started = false;
+            var boss = GetDefaultGameObject(_boss.Value);
+            _combat = boss != null ? boss.GetComponentInChildren<BossCombat>() : null;
+            _started = false;
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (m_Combat == null || !m_Combat.IsPhase2) {
+            if (_combat == null || !_combat.IsPhase2) {
                 return TaskStatus.Failure;
             }
 
-            if (!m_Started) {
-                m_Started = true;
-                m_Combat.PerformChestPulse();
+            if (!_started) {
+                _started = true;
+                _combat.PerformChestPulse();
             }
 
-            if (m_Combat.IsInProgress) {
+            if (_combat.IsInProgress) {
                 return TaskStatus.Running;
             }
 

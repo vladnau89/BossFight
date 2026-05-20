@@ -7,60 +7,65 @@ using UnityEngine;
 /// </summary>
 public class GiantHandSlamMotion : MonoBehaviour
 {
-    [SerializeField] private Vector3 m_RaiseLocalEuler = new Vector3(-80f, 0f, 0f);
-    [SerializeField] private Vector3 m_SlamArmEuler = new Vector3(35f, 0f, 0f);
-    [SerializeField] private Vector3 m_RotationOffsetEuler = new Vector3(-90f, 0f, 0f);
-    [SerializeField] private Vector3 m_SlamReachLocalOffset = new Vector3(0f, -0.15f, 0.6f);
-    [SerializeField] private float m_RaiseTime = 0.35f;
-    [SerializeField] private float m_HoverTime = 0.25f;
-    [SerializeField] private float m_DropTime = 0.5f;
-    [SerializeField] private float m_HoldAfterImpactTime = 0.15f;
-    [SerializeField] private bool m_HideAfterSlam = true;
+    [SerializeField] private Vector3 _raiseLocalEuler = new Vector3(-80f, 0f, 0f);
+    [SerializeField] private Vector3 _slamArmEuler = new Vector3(35f, 0f, 0f);
+    [SerializeField] private Vector3 _rotationOffsetEuler = new Vector3(-90f, 0f, 0f);
+    [SerializeField] private Vector3 _slamReachLocalOffset = new Vector3(0f, -0.15f, 0.6f);
+    [SerializeField] private float _raiseTime = 0.35f;
+    [SerializeField] private float _hoverTime = 0.25f;
+    [SerializeField] private float _dropTime = 0.5f;
+    [SerializeField] private float _holdAfterImpactTime = 0.15f;
+    [SerializeField] private bool _hideAfterSlam = true;
 
-    private Vector3 m_RestLocalPosition;
-    private Quaternion m_RestLocalRotation;
-    private bool m_IsPlaying;
+    private Vector3 _restLocalPosition;
+    private Quaternion _restLocalRotation;
+    private bool _isPlaying;
 
-    public bool IsPlaying => m_IsPlaying;
+    public event Action PlayStarted;
+    public event Action PlayFinished;
+
+    public bool IsPlaying => _isPlaying;
 
     private void Awake() => CacheRestPose();
 
     public void Play(Transform target, Action onImpact)
     {
-        if (m_IsPlaying || target == null) {
+        if (_isPlaying || target == null) {
             return;
         }
+
+        PlayStarted?.Invoke();
         StartCoroutine(SlamRoutine(target, onImpact));
     }
 
     public void CancelAndRestore()
     {
         StopAllCoroutines();
-        m_IsPlaying = false;
+        _isPlaying = false;
         RestoreRestPose();
     }
 
     private void CacheRestPose()
     {
-        m_RestLocalPosition = transform.localPosition;
-        m_RestLocalRotation = transform.localRotation;
+        _restLocalPosition = transform.localPosition;
+        _restLocalRotation = transform.localRotation;
     }
 
     private IEnumerator SlamRoutine(Transform target, Action onImpact)
     {
-        m_IsPlaying = true;
+        _isPlaying = true;
         gameObject.SetActive(true);
-        transform.localPosition = m_RestLocalPosition;
-        transform.localRotation = m_RestLocalRotation;
+        transform.localPosition = _restLocalPosition;
+        transform.localRotation = _restLocalRotation;
 
-        var raisedRotation = m_RestLocalRotation * Quaternion.Euler(m_RaiseLocalEuler);
+        var raisedRotation = _restLocalRotation * Quaternion.Euler(_raiseLocalEuler);
 
-        if (m_RaiseTime > 0f) {
+        if (_raiseTime > 0f) {
             var elapsed = 0f;
-            while (elapsed < m_RaiseTime) {
+            while (elapsed < _raiseTime) {
                 elapsed += Time.deltaTime;
-                var t = Mathf.Clamp01(elapsed / m_RaiseTime);
-                transform.localRotation = Quaternion.Slerp(m_RestLocalRotation, raisedRotation, t);
+                var t = Mathf.Clamp01(elapsed / _raiseTime);
+                transform.localRotation = Quaternion.Slerp(_restLocalRotation, raisedRotation, t);
                 yield return null;
             }
             transform.localRotation = raisedRotation;
@@ -68,18 +73,18 @@ public class GiantHandSlamMotion : MonoBehaviour
             transform.localRotation = raisedRotation;
         }
 
-        if (m_HoverTime > 0f) {
-            yield return new WaitForSeconds(m_HoverTime);
+        if (_hoverTime > 0f) {
+            yield return new WaitForSeconds(_hoverTime);
         }
 
-        if (m_DropTime > 0f) {
+        if (_dropTime > 0f) {
             var elapsed = 0f;
             var startRotation = transform.rotation;
             var startLocalPosition = transform.localPosition;
-            var endLocalPosition = m_RestLocalPosition + m_SlamReachLocalOffset;
-            while (elapsed < m_DropTime) {
+            var endLocalPosition = _restLocalPosition + _slamReachLocalOffset;
+            while (elapsed < _dropTime) {
                 elapsed += Time.deltaTime;
-                var t = Mathf.Clamp01(elapsed / m_DropTime);
+                var t = Mathf.Clamp01(elapsed / _dropTime);
                 var eased = t * t;
                 var slamRotation = GetSlamWorldRotation(target, eased);
                 transform.rotation = Quaternion.Slerp(startRotation, slamRotation, eased);
@@ -89,15 +94,16 @@ public class GiantHandSlamMotion : MonoBehaviour
         }
 
         transform.rotation = GetSlamWorldRotation(target, 1f);
-        transform.localPosition = m_RestLocalPosition + m_SlamReachLocalOffset;
+        transform.localPosition = _restLocalPosition + _slamReachLocalOffset;
+        PlayFinished?.Invoke();
         onImpact?.Invoke();
 
-        if (m_HoldAfterImpactTime > 0f) {
-            yield return new WaitForSeconds(m_HoldAfterImpactTime);
+        if (_holdAfterImpactTime > 0f) {
+            yield return new WaitForSeconds(_holdAfterImpactTime);
         }
 
         RestoreRestPose();
-        m_IsPlaying = false;
+        _isPlaying = false;
     }
 
     private Quaternion GetSlamWorldRotation(Transform target, float dropT)
@@ -112,16 +118,16 @@ public class GiantHandSlamMotion : MonoBehaviour
             toPlayer = Vector3.forward;
         }
 
-        var pitch = Mathf.Lerp(m_RaiseLocalEuler.x, m_SlamArmEuler.x, dropT);
+        var pitch = Mathf.Lerp(_raiseLocalEuler.x, _slamArmEuler.x, dropT);
         var yawToPlayer = Quaternion.LookRotation(toPlayer.normalized, Vector3.up);
-        return yawToPlayer * Quaternion.Euler(pitch + m_RotationOffsetEuler.x, m_RotationOffsetEuler.y, m_RotationOffsetEuler.z);
+        return yawToPlayer * Quaternion.Euler(pitch + _rotationOffsetEuler.x, _rotationOffsetEuler.y, _rotationOffsetEuler.z);
     }
 
     private void RestoreRestPose()
     {
-        transform.localPosition = m_RestLocalPosition;
-        transform.localRotation = m_RestLocalRotation;
-        if (m_HideAfterSlam) {
+        transform.localPosition = _restLocalPosition;
+        transform.localRotation = _restLocalRotation;
+        if (_hideAfterSlam) {
             gameObject.SetActive(false);
         }
     }

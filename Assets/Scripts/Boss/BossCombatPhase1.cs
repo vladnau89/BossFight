@@ -6,10 +6,11 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class BossCombatPhase1 : BossCombatPhase
 {
-    [SerializeField] private BossPhase1PresentationComponent _presentation;
-    [SerializeField] private BossPhase1HandSlamComponent _handSlam;
+    [SerializeField] private BossPresentationComponent _presentation;
+    [SerializeField] private GiantHandSlamMotion _handSlamMotion;
+    [SerializeField] private GroundShockwaveSpawner _groundShockwave;
 
-    public override bool InProgress => _handSlam.InProgress;
+    public override bool InProgress => _handSlamMotion.IsPlaying;
 
     public override void OnPhaseEnter()
     {
@@ -19,7 +20,8 @@ public class BossCombatPhase1 : BossCombatPhase
 
     public override void OnPhaseExit()
     {
-        _handSlam.CancelHandSlam();
+        _groundShockwave.CancelPending();
+        _handSlamMotion.CancelAndRestore();
         _presentation.HideGiantHand();
         base.OnPhaseExit();
     }
@@ -28,5 +30,13 @@ public class BossCombatPhase1 : BossCombatPhase
 
     public void ShowGiantHandPrep() => _presentation.ShowGiantHandPrep();
 
-    public void PerformHandSlam(Transform target) => _handSlam.PerformHandSlam(target);
+    public void PerformHandSlam(Transform target)
+    {
+        if (!IsActive || InProgress) {
+            return;
+        }
+
+        _presentation.ShowGiantHand();
+        _handSlamMotion.Play(target, null);
+    }
 }

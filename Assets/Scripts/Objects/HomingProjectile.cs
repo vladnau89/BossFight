@@ -8,27 +8,27 @@ using UnityEngine;
 public class HomingProjectile : Projectile
 {
     [Tooltip("Maximum turn speed in degrees per second.")]
-    [SerializeField] private float m_TurnRate = 90f;
+    [SerializeField] private float _turnRate = 90f;
 
     [Tooltip("Stop homing if the target is farther than this distance.")]
-    [SerializeField] private float m_MaxHomingDistance = 150f;
+    [SerializeField] private float _maxHomingDistance = 150f;
 
     [Tooltip("Homing stops when the target leaves this cone around the initial launch direction.")]
-    [SerializeField] private float m_MaxHomingConeAngle = 60f;
+    [SerializeField] private float _maxHomingConeAngle = 60f;
 
     [Tooltip("The flight direction can never turn more than this angle away from the launch direction.")]
-    [SerializeField] private float m_MaxDeflectionAngle = 45f;
+    [SerializeField] private float _maxDeflectionAngle = 45f;
 
     [Tooltip("Stop homing once the target is behind the rocket's current flight direction.")]
-    [SerializeField] private bool m_StopHomingWhenTargetBehind = true;
+    [SerializeField] private bool _stopHomingWhenTargetBehind = true;
 
     [Tooltip("Rotate the mesh to face the movement direction while homing.")]
-    [SerializeField] private bool m_RotateTowardsVelocity = true;
+    [SerializeField] private bool _rotateTowardsVelocity = true;
 
-    [SerializeField] private Transform m_HomingTarget;
+    [SerializeField] private Transform _homingTarget;
 
-    private Vector3 m_LaunchDirection;
-    private bool m_HomingEnabled;
+    private Vector3 _launchDirection;
+    private bool _homingEnabled;
 
     /// <summary>
     /// Sets the transform that this projectile should home in on.
@@ -36,7 +36,7 @@ public class HomingProjectile : Projectile
     /// <param name="target">The target transform.</param>
     public void SetHomingTarget(Transform target)
     {
-        m_HomingTarget = target;
+        _homingTarget = target;
     }
 
     /// <summary>
@@ -48,9 +48,9 @@ public class HomingProjectile : Projectile
         base.Initialize(velocity, torque, damageAmount, impactForce, impactForceFrames, impactLayers, impactStateName,
             impactStateDisableTimer, surfaceImpact, originator);
 
-        m_LaunchDirection = velocity.sqrMagnitude > 0.0001f ? velocity.normalized : m_Transform.forward;
+        _launchDirection = velocity.sqrMagnitude > 0.0001f ? velocity.normalized : m_Transform.forward;
         AcquireTarget(originator);
-        m_HomingEnabled = m_HomingTarget != null;
+        _homingEnabled = _homingTarget != null;
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public class HomingProjectile : Projectile
 
     private void AcquireTarget(GameObject originator)
     {
-        m_HomingTarget = null;
+        _homingTarget = null;
         if (originator == null) {
             return;
         }
@@ -77,19 +77,19 @@ public class HomingProjectile : Projectile
 
     private void StopHoming()
     {
-        m_HomingEnabled = false;
-        m_HomingTarget = null;
+        _homingEnabled = false;
+        _homingTarget = null;
     }
 
     private void ApplyHoming()
     {
-        if (!m_HomingEnabled || m_HomingTarget == null) {
+        if (!_homingEnabled || _homingTarget == null) {
             return;
         }
 
-        var toTarget = m_HomingTarget.position - m_Transform.position;
+        var toTarget = _homingTarget.position - m_Transform.position;
         var sqrDistance = toTarget.sqrMagnitude;
-        if (sqrDistance > m_MaxHomingDistance * m_MaxHomingDistance) {
+        if (sqrDistance > _maxHomingDistance * _maxHomingDistance) {
             StopHoming();
             return;
         }
@@ -106,27 +106,27 @@ public class HomingProjectile : Projectile
         var desiredDirection = toTarget.normalized;
         var currentDirection = m_Velocity / speed;
 
-        if (Vector3.Angle(m_LaunchDirection, desiredDirection) > m_MaxHomingConeAngle) {
+        if (Vector3.Angle(_launchDirection, desiredDirection) > _maxHomingConeAngle) {
             StopHoming();
             return;
         }
 
-        if (m_StopHomingWhenTargetBehind && Vector3.Dot(currentDirection, desiredDirection) <= 0f) {
+        if (_stopHomingWhenTargetBehind && Vector3.Dot(currentDirection, desiredDirection) <= 0f) {
             StopHoming();
             return;
         }
 
-        var maxRadians = m_TurnRate * Mathf.Deg2Rad * Time.fixedDeltaTime;
+        var maxRadians = _turnRate * Mathf.Deg2Rad * Time.fixedDeltaTime;
         var newDirection = Vector3.RotateTowards(currentDirection, desiredDirection, maxRadians, 0f);
 
-        var maxDeflectionRadians = m_MaxDeflectionAngle * Mathf.Deg2Rad;
-        if (Vector3.Angle(m_LaunchDirection, newDirection) > m_MaxDeflectionAngle) {
-            newDirection = Vector3.RotateTowards(m_LaunchDirection, newDirection, maxDeflectionRadians, 0f);
+        var maxDeflectionRadians = _maxDeflectionAngle * Mathf.Deg2Rad;
+        if (Vector3.Angle(_launchDirection, newDirection) > _maxDeflectionAngle) {
+            newDirection = Vector3.RotateTowards(_launchDirection, newDirection, maxDeflectionRadians, 0f);
         }
 
         m_Velocity = newDirection * speed;
 
-        if (m_RotateTowardsVelocity) {
+        if (_rotateTowardsVelocity) {
             m_Transform.rotation = Quaternion.LookRotation(newDirection);
         }
     }

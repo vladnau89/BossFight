@@ -11,15 +11,15 @@ namespace BossFight.UI
     [DisallowMultipleComponent]
     public class BossHealthBarUI : MonoBehaviour
     {
-        [SerializeField] private GameObject m_Boss;
-        [SerializeField] private Slider m_Slider;
-        [SerializeField] private string m_HealthAttributeName = "Health";
+        [SerializeField] private GameObject _boss;
+        [SerializeField] private Slider _slider;
+        [SerializeField] private string _healthAttributeName = "Health";
 
-        private Attribute m_HealthAttribute;
+        private Attribute _healthAttribute;
 
         private void Start()
         {
-            if (m_Slider == null) {
+            if (_slider == null) {
                 Debug.LogWarning("BossHealthBarUI: Slider is not assigned.", this);
                 gameObject.SetActive(false);
                 return;
@@ -36,7 +36,7 @@ namespace BossFight.UI
 
         private void OnEnable()
         {
-            if (m_Boss != null && m_HealthAttribute != null) {
+            if (_boss != null && _healthAttribute != null) {
                 RegisterEvents();
             }
         }
@@ -48,47 +48,47 @@ namespace BossFight.UI
 
         private void RegisterEvents()
         {
-            if (m_Boss == null) {
+            if (_boss == null) {
                 return;
             }
 
-            EventHandler.RegisterEvent<Attribute>(m_Boss, "OnAttributeUpdateValue", OnAttributeUpdateValue);
-            EventHandler.RegisterEvent<Vector3, Vector3, GameObject>(m_Boss, "OnDeath", OnBossDeath);
+            EventHandler.RegisterEvent<Attribute>(_boss, "OnAttributeUpdateValue", OnAttributeUpdateValue);
+            EventHandler.RegisterEvent<Vector3, Vector3, GameObject>(_boss, "OnDeath", OnBossDeath);
         }
 
         private void UnregisterEvents()
         {
-            if (m_Boss == null) {
+            if (_boss == null) {
                 return;
             }
 
-            EventHandler.UnregisterEvent<Attribute>(m_Boss, "OnAttributeUpdateValue", OnAttributeUpdateValue);
-            EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>(m_Boss, "OnDeath", OnBossDeath);
+            EventHandler.UnregisterEvent<Attribute>(_boss, "OnAttributeUpdateValue", OnAttributeUpdateValue);
+            EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>(_boss, "OnDeath", OnBossDeath);
         }
 
         private bool BindBoss()
         {
-            if (m_Boss == null) {
+            if (_boss == null) {
                 var combat = FindObjectOfType<BossCombat>();
                 if (combat != null) {
-                    m_Boss = combat.gameObject;
+                    _boss = combat.gameObject;
                 }
             }
 
-            if (m_Boss == null) {
+            if (_boss == null) {
                 Debug.LogWarning("BossHealthBarUI: boss not found.", this);
                 return false;
             }
 
-            var attributeManager = m_Boss.GetComponent<AttributeManager>();
+            var attributeManager = _boss.GetComponent<AttributeManager>();
             if (attributeManager == null) {
                 Debug.LogWarning("BossHealthBarUI: AttributeManager missing on boss.", this);
                 return false;
             }
 
-            m_HealthAttribute = attributeManager.GetAttribute(m_HealthAttributeName);
-            if (m_HealthAttribute == null) {
-                Debug.LogWarning($"BossHealthBarUI: attribute '{m_HealthAttributeName}' not found.", this);
+            _healthAttribute = attributeManager.GetAttribute(_healthAttributeName);
+            if (_healthAttribute == null) {
+                Debug.LogWarning($"BossHealthBarUI: attribute '{_healthAttributeName}' not found.", this);
                 return false;
             }
 
@@ -97,7 +97,7 @@ namespace BossFight.UI
 
         private void OnAttributeUpdateValue(Attribute attribute)
         {
-            if (attribute != m_HealthAttribute) {
+            if (attribute != _healthAttribute) {
                 return;
             }
 
@@ -106,20 +106,20 @@ namespace BossFight.UI
 
         private void OnBossDeath(Vector3 position, Vector3 force, GameObject attacker)
         {
-            if (m_Slider != null) {
-                m_Slider.value = 0f;
+            if (_slider != null) {
+                _slider.value = 0f;
             }
         }
 
         private void Refresh()
         {
-            if (m_Slider == null || m_HealthAttribute == null) {
+            if (_slider == null || _healthAttribute == null) {
                 return;
             }
 
-            var range = m_HealthAttribute.MaxValue - m_HealthAttribute.MinValue;
-            m_Slider.value = range > 0f
-                ? (m_HealthAttribute.Value - m_HealthAttribute.MinValue) / range
+            var range = _healthAttribute.MaxValue - _healthAttribute.MinValue;
+            _slider.value = range > 0f
+                ? (_healthAttribute.Value - _healthAttribute.MinValue) / range
                 : 0f;
         }
     }
