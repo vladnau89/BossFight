@@ -16,7 +16,8 @@ public class HomingProjectileInspector : ProjectileInspector
             EditorGUILayout.PropertyField(PropertyFromName("_turnRate"));
             EditorGUILayout.PropertyField(PropertyFromName("_maxHomingDistance"));
             EditorGUILayout.PropertyField(PropertyFromName("_maxHomingConeAngle"));
-            EditorGUILayout.PropertyField(PropertyFromName("_maxDeflectionAngle"));
+            EditorGUILayout.PropertyField(PropertyFromName("_maxDeflectionAngle"),
+                new UnityEngine.GUIContent("Max Deflection Angle", "Stop homing (fly straight) once steering exceeds this angle from launch. 0 = disabled."));
             EditorGUILayout.PropertyField(PropertyFromName("_stopHomingWhenTargetBehind"));
             EditorGUILayout.PropertyField(PropertyFromName("_rotateTowardsVelocity"));
             EditorGUI.indentLevel--;

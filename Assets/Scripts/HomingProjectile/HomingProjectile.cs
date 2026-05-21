@@ -3,7 +3,7 @@ using Opsive.UltimateCharacterController.SurfaceSystem;
 using UnityEngine;
 
 /// <summary>
-/// UCC projectile that steers toward a target within a limited cone, then flies on and self-destructs if the target is missed.
+/// UCC projectile that steers toward a target within a limited cone, then continues straight along its current heading.
 /// </summary>
 public class HomingProjectile : Projectile
 {
@@ -16,19 +16,21 @@ public class HomingProjectile : Projectile
     [Tooltip("Homing stops when the target leaves this cone around the initial launch direction.")]
     [SerializeField] private float _maxHomingConeAngle = 60f;
 
-    [Tooltip("The flight direction can never turn more than this angle away from the launch direction.")]
+    [Tooltip("Stop homing once steering would exceed this angle from the launch direction (0 = disabled).")]
     [SerializeField] private float _maxDeflectionAngle = 45f;
 
     [Tooltip("Stop homing once the target is behind the rocket's current flight direction.")]
     [SerializeField] private bool _stopHomingWhenTargetBehind = true;
 
-    [Tooltip("Rotate the mesh to face the movement direction while homing.")]
+    [Tooltip("Rotate the mesh to face the movement direction.")]
     [SerializeField] private bool _rotateTowardsVelocity = true;
 
     [SerializeField] private Transform _homingTarget;
 
     private Vector3 _launchDirection;
+    private Vector3 _straightFlightDirection;
     private bool _homingEnabled;
+    private bool _flyStraight;
 
     /// <summary>
     /// Sets the transform that this projectile should home in on.
@@ -49,6 +51,7 @@ public class HomingProjectile : Projectile
             impactStateDisableTimer, surfaceImpact, originator);
 
         _launchDirection = velocity.sqrMagnitude > 0.0001f ? velocity.normalized : m_Transform.forward;
+        _flyStraight = false;
         AcquireTarget(originator);
         _homingEnabled = _homingTarget != null;
     }
@@ -58,7 +61,12 @@ public class HomingProjectile : Projectile
     /// </summary>
     protected override void FixedUpdate()
     {
-        ApplyHoming();
+        if (_flyStraight) {
+            ApplyStraightFlight();
+        } else {
+            ApplyHoming();
+        }
+
         base.FixedUpdate();
     }
 
@@ -77,13 +85,49 @@ public class HomingProjectile : Projectile
 
     private void StopHoming()
     {
+        if (!_homingEnabled && _flyStraight) {
+            return;
+        }
+
         _homingEnabled = false;
         _homingTarget = null;
+        BeginStraightFlight();
+    }
+
+    private void BeginStraightFlight()
+    {
+        var speed = m_Velocity.magnitude;
+        if (speed < 0.01f) {
+            _flyStraight = false;
+            return;
+        }
+
+        _straightFlightDirection = m_Velocity / speed;
+        _flyStraight = true;
+    }
+
+    private void ApplyStraightFlight()
+    {
+        var speed = m_Velocity.magnitude;
+        if (speed < 0.01f) {
+            return;
+        }
+
+        m_Velocity = _straightFlightDirection * speed;
+
+        if (_rotateTowardsVelocity) {
+            m_Transform.rotation = Quaternion.LookRotation(_straightFlightDirection);
+        }
     }
 
     private void ApplyHoming()
     {
-        if (!_homingEnabled || _homingTarget == null) {
+        if (!_homingEnabled) {
+            return;
+        }
+
+        if (_homingTarget == null) {
+            StopHoming();
             return;
         }
 
@@ -119,9 +163,9 @@ public class HomingProjectile : Projectile
         var maxRadians = _turnRate * Mathf.Deg2Rad * Time.fixedDeltaTime;
         var newDirection = Vector3.RotateTowards(currentDirection, desiredDirection, maxRadians, 0f);
 
-        var maxDeflectionRadians = _maxDeflectionAngle * Mathf.Deg2Rad;
-        if (Vector3.Angle(_launchDirection, newDirection) > _maxDeflectionAngle) {
-            newDirection = Vector3.RotateTowards(_launchDirection, newDirection, maxDeflectionRadians, 0f);
+        if (_maxDeflectionAngle > 0f && Vector3.Angle(_launchDirection, newDirection) > _maxDeflectionAngle) {
+            StopHoming();
+            return;
         }
 
         m_Velocity = newDirection * speed;
