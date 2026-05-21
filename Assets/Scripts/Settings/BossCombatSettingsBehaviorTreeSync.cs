@@ -13,9 +13,28 @@ public sealed class BossCombatSettingsBehaviorTreeSync : MonoBehaviour, IBossCom
 
     [SerializeField] private BehaviorTree _behaviorTree;
 
-    public void ApplyBehaviorTreeSettings(float handSlamCooldown, float chestPulseCooldown)
+    public void ApplyBehaviorTreeSettings(float handSlamCooldown, float chestPulseCooldown, bool enableLog)
     {
+        if (_behaviorTree == null) {
+            return;
+        }
+
         _behaviorTree.SetVariableValue(HandSlamCooldownVariable, handSlamCooldown);
         _behaviorTree.SetVariableValue(ChestPulseCooldownVariable, chestPulseCooldown);
+        SetVariableIfExists(BossCombatLogUtility.EnableLogVariable, enableLog);
+    }
+
+    private void SetVariableIfExists(string variableName, bool value)
+    {
+        if (_behaviorTree.GetVariable(variableName) == null) {
+            Debug.LogWarning(
+                $"Boss combat: behavior tree '{_behaviorTree.name}' has no shared variable '{variableName}'. "
+                + "Add a Shared Bool with that name (e.g. on BT_Boss / BT_Boss_Test).",
+                _behaviorTree);
+            return;
+        }
+
+        _behaviorTree.SetVariableValue(variableName, value);
     }
 }
+

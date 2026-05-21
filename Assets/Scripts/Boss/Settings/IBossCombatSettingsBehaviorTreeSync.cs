@@ -3,5 +3,5 @@
 /// </summary>
 public interface IBossCombatSettingsBehaviorTreeSync
 {
-    void ApplyBehaviorTreeSettings(float handSlamCooldown, float chestPulseCooldown);
+    void ApplyBehaviorTreeSettings(float handSlamCooldown, float chestPulseCooldown, bool enableLog);
 }

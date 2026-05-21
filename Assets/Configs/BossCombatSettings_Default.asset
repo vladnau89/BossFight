@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a9b0c1d2e3546f7a8b9c0d1e2f3a45, type: 3}
   m_Name: BossCombatSettings_Default
   m_EditorClassIdentifier: 
-  _phase2EnterHealthFraction: 0.9
+  _phase2EnterHealthFraction: 0.5
   _bossMaxHealth: 2000
   _bossRocketDamage: 1
+  _enableBehaviorTreeLog: 1
   _phase1:
     _handSlamCooldown: 15
     _handSlamShockwave:

@@ -15,6 +15,7 @@ MonoBehaviour:
   _phase2EnterHealthFraction: 0.5
   _bossMaxHealth: 2000
   _bossRocketDamage: 1
+  _enableBehaviorTreeLog: 0
   _phase1:
     _handSlamCooldown: 15
     _handSlamShockwave:

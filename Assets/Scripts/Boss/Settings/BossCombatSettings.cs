@@ -7,7 +7,10 @@ public sealed class BossCombatSettings : ScriptableObject
     [SerializeField] [Range(0f, 1f)] private float _phase2EnterHealthFraction = 0.5f;
     [SerializeField] private float _bossMaxHealth = 2000f;
     [SerializeField] private float _bossRocketDamage = 1f;
-    
+
+    [Header("Debug")]
+    [SerializeField] private bool _enableBehaviorTreeLog;
+
     [Space(10)]
     [SerializeField] private BossCombatPhase1Settings _phase1 = BossCombatPhase1Settings.Default;
 
@@ -17,6 +20,7 @@ public sealed class BossCombatSettings : ScriptableObject
     public float Phase2EnterHealthFraction => _phase2EnterHealthFraction;
     public float BossMaxHealth => _bossMaxHealth;
     public float BossRocketDamage => _bossRocketDamage;
+    public bool EnableBehaviorTreeLog => _enableBehaviorTreeLog;
     public BossCombatPhase1Settings Phase1 => _phase1;
     public BossCombatPhase2Settings Phase2 => _phase2;
 
@@ -26,6 +30,7 @@ public sealed class BossCombatSettings : ScriptableObject
         _phase2EnterHealthFraction = 0.5f;
         _bossMaxHealth = 2000f;
         _bossRocketDamage = 1f;
+        _enableBehaviorTreeLog = false;
         _phase1 = BossCombatPhase1Settings.Default;
         _phase2 = BossCombatPhase2Settings.Default;
     }

@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 /// <summary>
 /// Copies values from <see cref="BossCombatSettings"/> into wired combat components and behavior-tree variables.
-/// Call <see cref="Apply"/> manually (inspector Apply button).
+/// Call <see cref="Apply"/> manually (inspector Apply button) or automatically on play via <see cref="_applyOnPlay"/>.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class BossCombatSettingsApplicator : MonoBehaviour
@@ -14,6 +14,7 @@ public sealed class BossCombatSettingsApplicator : MonoBehaviour
 
     [FormerlySerializedAs("_tuning")]
     [SerializeField] private BossCombatSettings _settings;
+    [SerializeField] private bool _applyOnPlay = true;
 
     [Header("Global")]
     [SerializeField] private BossPhaseHealthEnterCondition _phase2EnterCondition;
@@ -36,6 +37,13 @@ public sealed class BossCombatSettingsApplicator : MonoBehaviour
     [SerializeField] private GroundShockwaveSpawner _phase2ChestPulseShockwave;
     [SerializeField] private BossPhaseWeakPointsComponent _phase2WeakPoints;
 
+    private void Start()
+    {
+        if (_applyOnPlay && Application.isPlaying) {
+            Apply();
+        }
+    }
+
     [ContextMenu("Apply Settings")]
     public void Apply()
     {
@@ -52,7 +60,8 @@ public sealed class BossCombatSettingsApplicator : MonoBehaviour
         if (_behaviorTreeSettingsSync is IBossCombatSettingsBehaviorTreeSync behaviorTreeSync) {
             behaviorTreeSync.ApplyBehaviorTreeSettings(
                 _settings.Phase1.HandSlamCooldown,
-                _settings.Phase2.ChestPulseCooldown);
+                _settings.Phase2.ChestPulseCooldown,
+                _settings.EnableBehaviorTreeLog);
         }
 
         if (_bossRocketWeapon != null) {
