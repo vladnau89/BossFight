@@ -30,6 +30,12 @@ public class HealthComponent : MonoBehaviour
         RaiseHealthChanged(previous, wasReset: true);
     }
 
+    public void ApplySettings(float maxHealth)
+    {
+        _maxHealth = maxHealth;
+        ResetHealth();
+    }
+
     private void RaiseHealthChanged(float previousHealth, bool wasReset)
     {
         EventHealthChanged?.Invoke(new HealthChangeEventData(previousHealth, _currentHealth, _maxHealth, wasReset));

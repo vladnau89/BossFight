@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "BossFight.Runtime",
-        "BossFight.Boss"
+        "BossFight.Boss",
+        "Opsive.UltimateCharacterController"
     ],
     "includePlatforms": [
         "Editor"

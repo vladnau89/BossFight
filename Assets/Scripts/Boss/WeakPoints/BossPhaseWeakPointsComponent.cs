@@ -39,4 +39,17 @@ public sealed class BossPhaseWeakPointsComponent : MonoBehaviour
     {
         _weakPointsRoot.SetActive(active);
     }
+
+    public void ApplyCombatSettings(float maxHealth, float bossBurstDamage)
+    {
+        if (_weakPoints == null) {
+            return;
+        }
+
+        foreach (var weakPoint in _weakPoints) {
+            if (weakPoint != null) {
+                weakPoint.ApplyCombatSettings(maxHealth, bossBurstDamage);
+            }
+        }
+    }
 }

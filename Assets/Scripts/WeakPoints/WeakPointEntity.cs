@@ -21,4 +21,10 @@ public class WeakPointEntity : MonoBehaviour
     public void ResetHealth() => _health.ResetHealth();
 
     public void SetActive(bool active) => _activator.SetActive(active);
+
+    public void ApplyCombatSettings(float maxHealth, float bossBurstDamage)
+    {
+        _health.ApplySettings(maxHealth);
+        _damageValue.ApplySettings(bossBurstDamage);
+    }
 }

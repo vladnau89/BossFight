@@ -6230,10 +6230,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: b0c1d2e3f4a5768b9c0d1e2f3a4b5c67, type: 2}
   _phase2EnterCondition: {fileID: 880010054}
-  _handSlamShockwave: {fileID: 1549850434530320623}
-  _chestPulseShockwave: {fileID: 880010010}
-  _handSlamDamageApplier: {fileID: 880010085}
+  _bossAttributeManager: {fileID: 1102717299716776757}
+  _bossHealthAttributeName: Health
+  _bossRocketWeapon: {fileID: 8349585264801510011}
   _behaviorTreeSettingsSync: {fileID: 880010061}
+  _phase1HandSlamShockwave: {fileID: 1549850434530320623}
+  _phase1HandSlamDamage: {fileID: 880010085}
+  _phase1WeakPoints: {fileID: 880010030}
+  _phase2ChestPulseShockwave: {fileID: 880010010}
+  _phase2WeakPoints: {fileID: 880010031}
 --- !u!1 &8254558398565250808
 GameObject:
   m_ObjectHideFlags: 0
