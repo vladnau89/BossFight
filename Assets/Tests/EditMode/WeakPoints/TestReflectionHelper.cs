@@ -15,4 +15,10 @@ internal static class TestReflectionHelper
             BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
         method.Invoke(target, null);
     }
+
+    public static T GetField<T>(object target, string fieldName)
+    {
+        var field = target.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+        return (T)field.GetValue(target);
+    }
 }

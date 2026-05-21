@@ -6,7 +6,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class BossCombatPhase1 : BossCombatPhase
 {
-    [SerializeField] private BossPresentationComponent _presentation;
+    [SerializeField] private GiantHandSlamPresentationComponent giantHandSlamPresentation;
     [SerializeField] private GiantHandSlamMotion _handSlamMotion;
     [SerializeField] private GroundShockwaveSpawner _groundShockwave;
 
@@ -22,13 +22,13 @@ public class BossCombatPhase1 : BossCombatPhase
     {
         _groundShockwave.CancelPending();
         _handSlamMotion.CancelAndRestore();
-        _presentation.HideGiantHand();
+        giantHandSlamPresentation.HideGiantHand();
         base.OnPhaseExit();
     }
 
-    public void ShowRanged() => _presentation.ShowRanged();
+    public void ShowRanged() => giantHandSlamPresentation.ShowRanged();
 
-    public void ShowGiantHandPrep() => _presentation.ShowGiantHandPrep();
+    public void ShowGiantHandPrep() => giantHandSlamPresentation.ShowGiantHandPrep();
 
     public void PerformHandSlam(Transform target)
     {
@@ -36,7 +36,7 @@ public class BossCombatPhase1 : BossCombatPhase
             return;
         }
 
-        _presentation.ShowGiantHand();
+        giantHandSlamPresentation.ShowGiantHand();
         _handSlamMotion.Play(target, null);
     }
 }

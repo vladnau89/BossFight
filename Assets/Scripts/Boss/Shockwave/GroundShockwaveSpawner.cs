@@ -28,6 +28,16 @@ public sealed class GroundShockwaveSpawner : MonoBehaviour
 
     public bool IsBusy => _pendingSpawn != null || _activeWave != null || _holdAfterWave != null;
 
+    public void ApplySettings(BossCombatShockwaveSettings settings)
+    {
+        _waveDelayMin = settings.WaveDelayMin;
+        _waveDelayMax = settings.WaveDelayMax;
+        _damage = settings.Damage;
+        _maxRadius = settings.MaxRadius;
+        _speed = settings.Speed;
+        _holdAfterWaveSeconds = settings.HoldAfterWaveSeconds;
+    }
+
     public void ScheduleSpawn()
     {
         ScheduleSpawn(Random.Range(_waveDelayMin, _waveDelayMax));

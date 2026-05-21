@@ -10,6 +10,8 @@ public sealed class BossPhaseHealthEnterCondition : BossPhaseEnterCondition
     [SerializeField] private Health _health;
     [SerializeField] [Range(0f, 1f)] private float _enterAtHealthFraction = 0.5f;
 
+    public void ApplySettings(float enterAtHealthFraction) => _enterAtHealthFraction = enterAtHealthFraction;
+
     public override bool ShouldEnter()
     {
         if (!_health.IsAlive()) {

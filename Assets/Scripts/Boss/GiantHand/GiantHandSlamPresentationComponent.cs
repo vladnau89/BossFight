@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public sealed class BossPresentationComponent : MonoBehaviour
+public sealed class GiantHandSlamPresentationComponent : MonoBehaviour
 {
     [SerializeField] private GameObject _giantHandRoot;
     [SerializeField] private GameObject _rangedWeaponRoot;

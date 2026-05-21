@@ -21,7 +21,7 @@ public class BossPhaseControllerComponentTests
         _phase1 = _gameObject.AddComponent<TestBossCombatPhase>();
         _phase1Presentation = _gameObject.AddComponent<BossCombatPhase1>();
 
-        var presentation = _gameObject.AddComponent<BossPresentationComponent>();
+        var presentation = _gameObject.AddComponent<GiantHandSlamPresentationComponent>();
         var rangedRoot = new GameObject("Ranged");
         var handRoot = new GameObject("Hand");
         TestReflectionHelper.SetField(presentation, "_rangedWeaponRoot", rangedRoot);

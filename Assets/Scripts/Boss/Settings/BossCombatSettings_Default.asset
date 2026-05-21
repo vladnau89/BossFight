@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a9b0c1d2e3546f7a8b9c0d1e2f3a45, type: 3}
+  m_Name: BossCombatSettings_Default
+  m_EditorClassIdentifier: 
+  _phase2EnterHealthFraction: 0.5
+  _handSlamCooldown: 15
+  _chestPulseCooldown: 20
+  _handSlamShockwave:
+    _waveDelayMin: 1
+    _waveDelayMax: 3
+    _damage: 12
+    _maxRadius: 20
+    _speed: 10
+    _holdAfterWaveSeconds: 0
+  _chestPulseShockwave:
+    _waveDelayMin: 0.6
+    _waveDelayMax: 0.6
+    _damage: 18
+    _maxRadius: 20
+    _speed: 10
+    _holdAfterWaveSeconds: 3
+  _handSlamDamage: 35
+  _handSlamForce: 4

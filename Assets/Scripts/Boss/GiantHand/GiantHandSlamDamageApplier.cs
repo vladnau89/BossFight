@@ -10,6 +10,12 @@ public sealed class GiantHandSlamDamageApplier : MonoBehaviour
     [SerializeField] private float _force = 4f;
     [SerializeField] private LayerMask _playerDamageLayers = (1 << LayerManager.Character) | (1 << LayerManager.SubCharacter);
 
+    public void ApplySettings(float damageAmount, float force)
+    {
+        _damageAmount = damageAmount;
+        _force = force;
+    }
+
     public void ApplyHandSlamDamage()
     {
         if (!_phase.IsActive) {

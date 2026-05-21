@@ -1719,6 +1719,7 @@ GameObject:
   - component: {fileID: 5396541465049222575}
   - component: {fileID: 7671026241484305289}
   - component: {fileID: 2503330351616998908}
+  - component: {fileID: 880010061}
   - component: {fileID: 5044409861722466360}
   - component: {fileID: 8844221100998877665}
   - component: {fileID: 4282838798480671742}
@@ -1843,6 +1844,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fedd6ce8fdf5544581861b1fee8a0a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &880010061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548646073837861339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e3f4a5b6c7d8e9f0a1b2c3d4e5f607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _behaviorTree: {fileID: 2503330351616998908}
 --- !u!114 &2503330351616998908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6090,6 +6104,7 @@ GameObject:
   - component: {fileID: 880010004}
   - component: {fileID: 880010009}
   - component: {fileID: 880010008}
+  - component: {fileID: 880010060}
   m_Layer: 26
   m_Name: Combat
   m_TagString: Untagged
@@ -6129,6 +6144,24 @@ MonoBehaviour:
   _phaseController: {fileID: 880010001}
   _phase1: {fileID: 3999502231032211937}
   _phase2: {fileID: 3457147234938418901}
+--- !u!114 &880010060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8226596618155951254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b0c1d2e3f4657a8b9c0d1e2f3a4b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: b0c1d2e3f4a5768b9c0d1e2f3a4b5c67, type: 2}
+  _phase2EnterCondition: {fileID: 880010054}
+  _handSlamShockwave: {fileID: 1549850434530320623}
+  _chestPulseShockwave: {fileID: 880010010}
+  _handSlamDamageApplier: {fileID: 880010085}
+  _behaviorTreeSettingsSync: {fileID: 880010061}
 --- !u!114 &880010001
 MonoBehaviour:
   m_ObjectHideFlags: 0
