@@ -57,6 +57,8 @@ public sealed class BossCombatSettingsApplicator : MonoBehaviour
         _settings.Phase1.ApplyCombat(_phase1HandSlamShockwave, _phase1HandSlamDamage, _phase1WeakPoints);
         _settings.Phase2.ApplyCombat(_phase2ChestPulseShockwave, _phase2WeakPoints);
 
+        BossCombatDebugLog.SetEnabled(_settings.EnableBehaviorTreeLog);
+
         if (_behaviorTreeSettingsSync is IBossCombatSettingsBehaviorTreeSync behaviorTreeSync) {
             behaviorTreeSync.ApplyBehaviorTreeSettings(
                 _settings.Phase1.HandSlamCooldown,
