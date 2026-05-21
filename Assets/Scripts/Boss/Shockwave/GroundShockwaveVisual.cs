@@ -22,9 +22,14 @@ public sealed class GroundShockwaveVisual : MonoBehaviour
     {
         if (_outerRing == null) {
             _outerRing = CreateRingLineRenderer("OuterRing", _outerLineWidth);
+        } else {
+            ConfigureRingLineRenderer(_outerRing, _outerLineWidth);
         }
+
         if (_innerRing == null) {
             _innerRing = CreateRingLineRenderer("InnerRing", _innerLineWidth);
+        } else {
+            ConfigureRingLineRenderer(_innerRing, _innerLineWidth);
         }
     }
 
@@ -44,7 +49,12 @@ public sealed class GroundShockwaveVisual : MonoBehaviour
         go.transform.SetParent(transform, false);
 
         var lineRenderer = go.AddComponent<LineRenderer>();
+        ConfigureRingLineRenderer(lineRenderer, width);
+        return lineRenderer;
+    }
 
+    private void ConfigureRingLineRenderer(LineRenderer lineRenderer, float width)
+    {
         lineRenderer.loop = true;
         lineRenderer.useWorldSpace = false;
         lineRenderer.shadowCastingMode = ShadowCastingMode.Off;
@@ -55,7 +65,6 @@ public sealed class GroundShockwaveVisual : MonoBehaviour
         lineRenderer.material = GetRingMaterial();
         lineRenderer.startWidth = width;
         lineRenderer.endWidth = width;
-        return lineRenderer;
     }
 
     private static Material GetRingMaterial()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Phase 1 facade: presentation + hand slam attack.
@@ -6,6 +7,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class BossCombatPhase1 : BossCombatPhase
 {
+    [FormerlySerializedAs("_presentation")]
     [SerializeField] private GiantHandSlamPresentationComponent giantHandSlamPresentation;
     [SerializeField] private GiantHandSlamMotion _handSlamMotion;
     [SerializeField] private GroundShockwaveSpawner _groundShockwave;

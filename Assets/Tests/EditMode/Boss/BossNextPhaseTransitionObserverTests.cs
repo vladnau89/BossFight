@@ -25,7 +25,7 @@ public class BossNextPhaseTransitionObserverTests
         var handRoot = new GameObject("Hand");
         TestReflectionHelper.SetField(presentation, "_rangedWeaponRoot", rangedRoot);
         TestReflectionHelper.SetField(presentation, "_giantHandRoot", handRoot);
-        TestReflectionHelper.SetField(_phase1, "_presentation", presentation);
+        TestReflectionHelper.SetField(_phase1, "giantHandSlamPresentation", presentation);
 
         TestReflectionHelper.SetField(_controller, "_phases", new BossCombatPhase[] { _phase0, _phase1 });
         TestReflectionHelper.SetField(_controller, "_startPhaseIndex", 0);

@@ -26,7 +26,7 @@ public class BossPhaseControllerComponentTests
         var handRoot = new GameObject("Hand");
         TestReflectionHelper.SetField(presentation, "_rangedWeaponRoot", rangedRoot);
         TestReflectionHelper.SetField(presentation, "_giantHandRoot", handRoot);
-        TestReflectionHelper.SetField(_phase1Presentation, "_presentation", presentation);
+        TestReflectionHelper.SetField(_phase1Presentation, "giantHandSlamPresentation", presentation);
 
         TestReflectionHelper.SetField(_controller, "_phases", new BossCombatPhase[] { _phase0, _phase1 });
         TestReflectionHelper.SetField(_controller, "_startPhaseIndex", 0);
