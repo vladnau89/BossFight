@@ -8,8 +8,14 @@ public sealed class BossCombatSettings : ScriptableObject
     [SerializeField] private float _bossMaxHealth = 2000f;
     [SerializeField] private float _bossRocketDamage = 1f;
 
+    [Header("Targeting (behavior tree)")]
+    [SerializeField] private float _searchDistance = 12f;
+    [SerializeField] private float _attackDistance = 10f;
+
     [Header("Debug")]
     [SerializeField] private bool _enableBehaviorTreeLog;
+    [SerializeField] private bool _drawDistanceGizmos;
+    [SerializeField] private Vector3 _distanceGizmoOriginOffset = new(0f, 1.8f, 0f);
 
     [Space(10)]
     [SerializeField] private BossCombatPhase1Settings _phase1 = BossCombatPhase1Settings.Default;
@@ -20,7 +26,11 @@ public sealed class BossCombatSettings : ScriptableObject
     public float Phase2EnterHealthFraction => _phase2EnterHealthFraction;
     public float BossMaxHealth => _bossMaxHealth;
     public float BossRocketDamage => _bossRocketDamage;
+    public float SearchDistance => _searchDistance;
+    public float AttackDistance => _attackDistance;
     public bool EnableBehaviorTreeLog => _enableBehaviorTreeLog;
+    public bool DrawDistanceGizmos => _drawDistanceGizmos;
+    public Vector3 DistanceGizmoOriginOffset => _distanceGizmoOriginOffset;
     public BossCombatPhase1Settings Phase1 => _phase1;
     public BossCombatPhase2Settings Phase2 => _phase2;
 
@@ -30,7 +40,11 @@ public sealed class BossCombatSettings : ScriptableObject
         _phase2EnterHealthFraction = 0.5f;
         _bossMaxHealth = 2000f;
         _bossRocketDamage = 1f;
+        _searchDistance = 12f;
+        _attackDistance = 10f;
         _enableBehaviorTreeLog = false;
+        _drawDistanceGizmos = false;
+        _distanceGizmoOriginOffset = new Vector3(0f, 1.8f, 0f);
         _phase1 = BossCombatPhase1Settings.Default;
         _phase2 = BossCombatPhase2Settings.Default;
     }

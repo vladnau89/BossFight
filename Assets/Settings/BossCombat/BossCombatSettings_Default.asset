@@ -15,7 +15,11 @@ MonoBehaviour:
   _phase2EnterHealthFraction: 0.5
   _bossMaxHealth: 2000
   _bossRocketDamage: 1
+  _searchDistance: 12
+  _attackDistance: 10
   _enableBehaviorTreeLog: 0
+  _drawDistanceGizmos: 0
+  _distanceGizmoOriginOffset: {x: 0, y: 1.8, z: 0}
   _phase1:
     _handSlamCooldown: 15
     _handSlamShockwave:

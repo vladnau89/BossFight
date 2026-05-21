@@ -63,7 +63,9 @@ public sealed class BossCombatSettingsApplicator : MonoBehaviour
             behaviorTreeSync.ApplyBehaviorTreeSettings(
                 _settings.Phase1.HandSlamCooldown,
                 _settings.Phase2.ChestPulseCooldown,
-                _settings.EnableBehaviorTreeLog);
+                _settings.EnableBehaviorTreeLog,
+                _settings.SearchDistance,
+                _settings.AttackDistance);
         }
 
         if (_bossRocketWeapon != null) {
