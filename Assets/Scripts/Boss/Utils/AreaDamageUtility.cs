@@ -10,11 +10,10 @@ using UnityEngine;
 public static class AreaDamageUtility
 {
     private static readonly Collider[] s_Colliders = new Collider[32];
-    private static readonly HashSet<Health> s_Damaged = new HashSet<Health>();
 
-    public static void DamageRing(Vector3 center, float innerRadius, float outerRadius, float damage, float forceMagnitude, GameObject attacker, LayerMask layers, bool requireGrounded = false)
+    /// <param name="damagedTargets">Targets already hit by this wave; persists for the wave lifetime so each character is damaged at most once.</param>
+    public static void DamageRing(Vector3 center, float innerRadius, float outerRadius, float damage, float forceMagnitude, GameObject attacker, LayerMask layers, HashSet<Health> damagedTargets, bool requireGrounded = false)
     {
-        s_Damaged.Clear();
         var count = Physics.OverlapSphereNonAlloc(center, outerRadius, s_Colliders, layers, QueryTriggerInteraction.Collide);
         var innerSqr = innerRadius * innerRadius;
         var outerSqr = outerRadius * outerRadius;
@@ -25,7 +24,7 @@ public static class AreaDamageUtility
             if (sqrDistance < innerSqr || sqrDistance > outerSqr) {
                 continue;
             }
-            TryApplyDamage(collider, closest, damage, forceMagnitude, attacker, layers, s_Damaged, requireGrounded);
+            TryApplyDamage(collider, closest, damage, forceMagnitude, attacker, layers, damagedTargets, requireGrounded);
         }
     }
 

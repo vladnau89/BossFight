@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Traits;
 using UnityEngine;
 
 /// <summary>
@@ -18,6 +20,7 @@ public class GroundShockwave : MonoBehaviour
     private float _radius;
     private GameObject _attacker;
     private Action _onDestroyed;
+    private readonly HashSet<Health> _damagedTargets = new HashSet<Health>();
 
     public void Initialize(Vector3 position, GameObject attacker, float damage, float maxRadius, float speed, Action onDestroyed)
     {
@@ -28,8 +31,8 @@ public class GroundShockwave : MonoBehaviour
         _speed = speed;
         _radius = _width;
         _onDestroyed = onDestroyed;
-        _visual.EnsureReady();
-        _visual.UpdateRing(_radius, _maxRadius, _width);
+        _damagedTargets.Clear();
+        _visual.UpdateRing(_radius);
     }
 
     private void Update()
@@ -41,15 +44,15 @@ public class GroundShockwave : MonoBehaviour
             return;
         }
 
-        AreaDamageUtility.DamageRing(transform.position, previousRadius, _radius, _damage, _forceMagnitude, _attacker, _targetLayers, requireGrounded: true);
-        _visual.UpdateRing(_radius, _maxRadius, _width);
+        AreaDamageUtility.DamageRing(transform.position, previousRadius, _radius, _damage, _forceMagnitude, _attacker, _targetLayers, _damagedTargets, requireGrounded: true);
+        _visual.UpdateRing(_radius);
     }
 
     private void OnDestroy() => _onDestroyed?.Invoke();
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.35f);
+        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
         Gizmos.DrawWireSphere(transform.position, _radius);
     }
 }
