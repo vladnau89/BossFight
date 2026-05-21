@@ -23,15 +23,13 @@ namespace BehaviorDesigner.Runtime.Tasks.UltimateCharacterController
                 return TaskStatus.Failure;
             }
 
-            if (!_started) {
-                _started = true;
-                _combat.PerformChestPulse();
+            if (_started) {
+                return TaskStatus.Success;
             }
 
-            if (_combat.IsInProgress) {
-                return TaskStatus.Running;
-            }
-
+            _started = true;
+            _combat.ShowRangedPhase();
+            _combat.PerformChestPulse();
             return TaskStatus.Success;
         }
     }
