@@ -30,6 +30,7 @@ public sealed class BossCombatSettingsApplicator : MonoBehaviour
     [SerializeField] private GroundShockwaveSpawner _phase1HandSlamShockwave;
     [FormerlySerializedAs("_handSlamDamageApplier")]
     [SerializeField] private GiantHandSlamDamageApplier _phase1HandSlamDamage;
+    [SerializeField] private GiantHandSlamMotion _phase1HandSlamMotion;
     [SerializeField] private BossPhaseWeakPointsComponent _phase1WeakPoints;
 
     [Header("Phase 2")]
@@ -54,7 +55,7 @@ public sealed class BossCombatSettingsApplicator : MonoBehaviour
         _phase2EnterCondition.ApplySettings(_settings.Phase2EnterHealthFraction);
         ApplyBossHealth(_settings.BossMaxHealth);
 
-        _settings.Phase1.ApplyCombat(_phase1HandSlamShockwave, _phase1HandSlamDamage, _phase1WeakPoints);
+        _settings.Phase1.ApplyCombat(_phase1HandSlamShockwave, _phase1HandSlamDamage, _phase1HandSlamMotion, _phase1WeakPoints);
         _settings.Phase2.ApplyCombat(_phase2ChestPulseShockwave, _phase2WeakPoints);
 
         BossCombatDebugLog.SetEnabled(_settings.EnableBehaviorTreeLog);

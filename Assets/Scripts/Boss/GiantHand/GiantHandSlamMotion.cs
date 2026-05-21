@@ -26,6 +26,13 @@ public class GiantHandSlamMotion : MonoBehaviour
 
     public bool IsPlaying => _isPlaying;
 
+    public void ApplyTimingSettings(float raiseTime, float hoverTime, float dropTime)
+    {
+        _raiseTime = raiseTime;
+        _hoverTime = hoverTime;
+        _dropTime = dropTime;
+    }
+
     private void Awake() => CacheRestPose();
 
     public void Play(Transform target, Action onImpact)

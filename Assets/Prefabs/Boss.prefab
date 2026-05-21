@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &880010070
 GameObject:
@@ -2008,9 +2008,7 @@ MonoBehaviour:
         Position","IsShared":true,"BooleanmValue":false},"SharedBoolbool2":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"","BooleanmValue":true}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityTransform.GetPosition","NodeData":{"Offset":"(90,110)"},"ID":96,"Name":"Get
         Position","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},"SharedVector3storeValue":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"Last
         Position","IsShared":true,"Vector3mValue":"(0,0,0)"}}]}]}]}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"SearchDistance","IsShared":true,"SinglemValue":12},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"AttackDistance","IsShared":true,"SinglemValue":10},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"CanSee
-        Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"HandSlam
-        Ready","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"HandSlam
-        Cooldown","IsShared":true,"SinglemValue":15},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"ChestPulseReady","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"ChestPulseCooldown","IsShared":true,"SinglemValue":10},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"EnableLog","IsShared":true,"BooleanmValue":false}]}'
+        Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"HandSlamReady","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"HandSlamCooldown","IsShared":true,"SinglemValue":15},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"ChestPulseReady","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"ChestPulseCooldown","IsShared":true,"SinglemValue":10},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"EnableLog","IsShared":true,"BooleanmValue":false}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -6266,6 +6264,7 @@ MonoBehaviour:
   _behaviorTreeSettingsSync: {fileID: 880010061}
   _phase1HandSlamShockwave: {fileID: 1549850434530320623}
   _phase1HandSlamDamage: {fileID: 880010085}
+  _phase1HandSlamMotion: {fileID: 1888001001888003001}
   _phase1WeakPoints: {fileID: 880010030}
   _phase2ChestPulseShockwave: {fileID: 880010010}
   _phase2WeakPoints: {fileID: 880010031}

@@ -8,7 +8,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public sealed class BossCombatSettingsBehaviorTreeSync : MonoBehaviour, IBossCombatSettingsBehaviorTreeSync
 {
-    public const string HandSlamCooldownVariable = "Hand Slam Cooldown";
+    public const string HandSlamCooldownVariable = "HandSlamCooldown";
     public const string ChestPulseCooldownVariable = "ChestPulseCooldown";
     public const string SearchDistanceVariable = "SearchDistance";
     public const string AttackDistanceVariable = "AttackDistance";
@@ -28,8 +28,8 @@ public sealed class BossCombatSettingsBehaviorTreeSync : MonoBehaviour, IBossCom
             return;
         }
 
-        _behaviorTree.SetVariableValue(HandSlamCooldownVariable, handSlamCooldown);
-        _behaviorTree.SetVariableValue(ChestPulseCooldownVariable, chestPulseCooldown);
+        SetVariableIfExists(HandSlamCooldownVariable, handSlamCooldown);
+        SetVariableIfExists(ChestPulseCooldownVariable, chestPulseCooldown);
         SetVariableIfExists(BossCombatLogUtility.EnableLogVariable, enableLog);
         SetVariableIfExists(SearchDistanceVariable, searchDistance);
         SetVariableIfExists(AttackDistanceVariable, attackDistance);

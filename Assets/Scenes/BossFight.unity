@@ -1275,9 +1275,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1303,6 +1300,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!4 &1724788606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724788603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -147.5}
+  m_LocalScale: {x: 102.4, y: 1, z: 102.4}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1724788607
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1325,21 +1337,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1724788606
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724788603}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -147.5}
-  m_LocalScale: {x: 102.4, y: 1, z: 102.4}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &273413696932419001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1407,11 +1404,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 880010054, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: _enterAtHealthFraction
-      value: 0.9
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1548646073837861339, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: m_Name
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 1549850434530320623, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: _waveDelayMax
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1549850434530320623, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: _waveDelayMin
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: _hoverTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: _raiseTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2503330351616998908, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: mBehaviorSource.mTaskData.JSONSerialization
@@ -1548,9 +1561,7 @@ PrefabInstance:
         Position","IsShared":true,"BooleanmValue":false},"SharedBoolbool2":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"","BooleanmValue":true}},{"Type":"BehaviorDesigner.Runtime.Tasks.Unity.UnityTransform.GetPosition","NodeData":{"Offset":"(90,110)"},"ID":96,"Name":"Get
         Position","Instant":true,"SharedGameObjecttargetGameObject":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},"SharedVector3storeValue":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"Last
         Position","IsShared":true,"Vector3mValue":"(0,0,0)"}}]}]}]}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"SearchDistance","IsShared":true,"SinglemValue":12},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"AttackDistance","IsShared":true,"SinglemValue":10},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"CanSee
-        Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"HandSlam
-        Ready","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"HandSlam
-        Cooldown","IsShared":true,"SinglemValue":15},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"ChestPulseReady","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"ChestPulseCooldown","IsShared":true,"SinglemValue":10},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"EnableLog","IsShared":true,"BooleanmValue":false}]}'
+        Target","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"AimTarget","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"HandSlamReady","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"HandSlamCooldown","IsShared":true,"SinglemValue":15},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"ChestPulseReady","IsShared":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":"ChestPulseCooldown","IsShared":true,"SinglemValue":10},{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"EnableLog","IsShared":true,"BooleanmValue":false}]}'
       objectReference: {fileID: 0}
     - target: {fileID: 5044409861722466360, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: m_Target

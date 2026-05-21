@@ -7,6 +7,9 @@ public struct BossCombatPhase1Settings
     [Header("Behavior tree (seconds)")]
     [SerializeField] private float _handSlamCooldown;
 
+    [Header("Hand slam — motion (seconds)")]
+    [SerializeField] private BossCombatHandSlamMotionSettings _handSlamMotion;
+
     [Header("Hand slam — ground shockwave")]
     [SerializeField] private BossCombatShockwaveSettings _handSlamShockwave;
 
@@ -18,6 +21,7 @@ public struct BossCombatPhase1Settings
     [SerializeField] private BossCombatWeakPointPhaseSettings _weakPoints;
 
     public float HandSlamCooldown => _handSlamCooldown;
+    public BossCombatHandSlamMotionSettings HandSlamMotion => _handSlamMotion;
     public BossCombatShockwaveSettings HandSlamShockwave => _handSlamShockwave;
     public float HandSlamDamage => _handSlamDamage;
     public float HandSlamForce => _handSlamForce;
@@ -26,8 +30,13 @@ public struct BossCombatPhase1Settings
     public void ApplyCombat(
         GroundShockwaveSpawner handSlamShockwave,
         GiantHandSlamDamageApplier handSlamDamage,
+        GiantHandSlamMotion handSlamMotion,
         BossPhaseWeakPointsComponent weakPoints)
     {
+        if (handSlamMotion != null) {
+            handSlamMotion.ApplyTimingSettings(_handSlamMotion.RaiseTime, _handSlamMotion.HoverTime, _handSlamMotion.DropTime);
+        }
+
         if (handSlamShockwave != null) {
             handSlamShockwave.ApplySettings(_handSlamShockwave);
         }
@@ -51,6 +60,7 @@ public struct BossCombatPhase1Settings
     public static BossCombatPhase1Settings Default => new BossCombatPhase1Settings
     {
         _handSlamCooldown = 15f,
+        _handSlamMotion = BossCombatHandSlamMotionSettings.Default,
         _handSlamShockwave = BossCombatShockwaveSettings.HandSlamDefault,
         _handSlamDamage = 35f,
         _handSlamForce = 4f,

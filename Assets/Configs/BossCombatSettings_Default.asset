@@ -22,9 +22,13 @@ MonoBehaviour:
   _distanceGizmoOriginOffset: {x: 0, y: 1.8, z: 0}
   _phase1:
     _handSlamCooldown: 15
+    _handSlamMotion:
+      _raiseTime: 1
+      _hoverTime: 1
+      _dropTime: 1
     _handSlamShockwave:
-      _waveDelayMin: 1
-      _waveDelayMax: 3
+      _waveDelayMin: 0.2
+      _waveDelayMax: 1
       _damage: 12
       _maxRadius: 20
       _speed: 10
