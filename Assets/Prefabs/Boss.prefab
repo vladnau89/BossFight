@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &880010070
 GameObject:
@@ -1718,7 +1718,6 @@ GameObject:
   - component: {fileID: 3396434261629783209}
   - component: {fileID: 6097351043078299694}
   - component: {fileID: 5396541465049222575}
-  - component: {fileID: 7671026241484305289}
   - component: {fileID: 2503330351616998908}
   - component: {fileID: 880010061}
   - component: {fileID: 5044409861722466360}
@@ -1833,18 +1832,6 @@ MonoBehaviour:
     m_BlockList: []
     m_Default: 1
   m_PauseOnDeath: 0
---- !u!114 &7671026241484305289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548646073837861339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fedd6ce8fdf5544581861b1fee8a0a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2503330351616998908
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Pushes cooldown values from <see cref="BossCombatSettings"/> into the boss behavior tree.
-/// Compiled in Assembly-CSharp (same as Behavior Designer) because BossFight.Boss cannot reference BehaviorTree.
+/// Lives outside BossFight.Boss because that assembly cannot reference Behavior Designer.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class BossCombatSettingsBehaviorTreeSync : MonoBehaviour, IBossCombatSettingsBehaviorTreeSync

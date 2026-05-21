@@ -1127,9 +1127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b17e11b4e85729449b773c74f06daef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DecalLimit: 100
-  m_WeatheredDecalLimit: 20
-  m_RemoveFadeoutSpeed: 10
+  m_DecalLimit: 35
+  m_WeatheredDecalLimit: 12
+  m_RemoveFadeoutSpeed: 18
 --- !u!114 &1076190141
 MonoBehaviour:
   m_ObjectHideFlags: 0
