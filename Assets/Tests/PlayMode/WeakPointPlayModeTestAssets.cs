@@ -7,7 +7,7 @@ using UnityEditor;
 
 internal static class WeakPointPlayModeTestAssets
 {
-    internal const string WeakPointPrefabPath = "Assets/Prefabs/Boss/WeakPoint.prefab";
+    internal const string WeakPointPrefabPath = "Assets/Prefabs/WeakPoint.prefab";
 
     internal static GameObject LoadWeakPointPrefab()
     {
