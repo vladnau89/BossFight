@@ -21,7 +21,7 @@ MonoBehaviour:
   _drawDistanceGizmos: 1
   _distanceGizmoOriginOffset: {x: 0, y: 1.8, z: 0}
   _phase1:
-    _handSlamCooldown: 15
+    _handSlamCooldown: 10
     _handSlamMotion:
       _raiseTime: 1
       _hoverTime: 1
@@ -39,10 +39,10 @@ MonoBehaviour:
       _maxHealth: 30
       _bossBurstDamage: 100
   _phase2:
-    _chestPulseCooldown: 20
+    _chestPulseCooldown: 10
     _chestPulseShockwave:
       _waveDelayMin: 0.6
-      _waveDelayMax: 0.6
+      _waveDelayMax: 1
       _damage: 18
       _maxRadius: 20
       _speed: 10

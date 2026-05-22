@@ -1147,7 +1147,7 @@ MonoBehaviour:
   m_DetectTerrainTreeTextures: 0
   m_FallbackSurfaceImpact: {fileID: 0}
   m_FallbackSurfaceType: {fileID: 11400000, guid: e616b14f5d2d0cf42bb5b4360f2b2089, type: 2}
-  m_FallbackAllowDecals: 1
+  m_FallbackAllowDecals: 0
 --- !u!4 &1076190142
 Transform:
   m_ObjectHideFlags: 0
@@ -1402,6 +1402,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 880010010, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
+      propertyPath: _waveDelayMax
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 880010054, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: _enterAtHealthFraction
       value: 0.5
@@ -1412,11 +1416,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1549850434530320623, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: _waveDelayMax
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1549850434530320623, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: _waveDelayMin
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1888001001888003001, guid: f9cb95817248e6f4da98da538c161f05, type: 3}
       propertyPath: _hoverTime
